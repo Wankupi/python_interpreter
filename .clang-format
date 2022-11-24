@@ -1,0 +1,24 @@
+---
+BasedOnStyle: LLVM
+UseTab: Always
+IndentWidth: 2
+TabWidth: 2
+# BreakBeforeBraces: Attach
+
+AllowShortIfStatementsOnASingleLine: AllIfsAndElse
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+IndentCaseLabels: true
+IndentAccessModifiers: false
+ColumnLimit: 0
+
+BreakBeforeBraces: Custom
+
+BraceWrapping:
+	BeforeElse: true
+
+
+NamespaceIndentation: Inner
+
+...
+

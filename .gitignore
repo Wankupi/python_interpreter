@@ -1,0 +1,15 @@
+# IDE files
+.idea/
+cmake-build-debug/
+cmake-build-release/
+build/
+gen/
+antlr-playground/.antlr
+
+# Testcases
+testcases/hidden-testcases
+
+.vscode/
+/*.in
+/*.out
+/*.sh
