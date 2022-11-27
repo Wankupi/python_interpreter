@@ -3,6 +3,11 @@
 #include <cmath>
 
 void testVar(antlrcpp::Any &any) {
+	if (any.is<std::vector<antlrcpp::Any>>()) {
+		std::vector<antlrcpp::Any> &v = any.as<std::vector<antlrcpp::Any>>();
+		for (auto &x : v)
+			testVar(x);
+	}
 	if (any.is<VarType>()) any = any.as<VarType>()->second;
 }
 
@@ -228,5 +233,13 @@ std::ostream &operator<<(std::ostream &os, antlrcpp::Any const &a) {
 		os << "None";
 	else if (a.is<std::shared_ptr<func>>())
 		os << "function<" << a.as<std::shared_ptr<func>>()->getName() << ">";
+	else if (a.is<std::vector<antlrcpp::Any>>()) {
+		std::vector<antlrcpp::Any> const &v = a.as<std::vector<antlrcpp::Any>>();
+		if (v.empty()) return os << "()";
+		os << "(" << v[0];
+		for (size_t i = 1; i < v.size(); ++i)
+			os << ", " << v[i];
+		os << ")";
+	}
 	return os;
 }

@@ -93,8 +93,16 @@ antlrcpp::Any func_user::call(EvalVisitor &vis, Python3Parser::ArglistContext *c
 
 	if (val.is<FlowStmt>()) {
 		FlowStmt &fs = val.as<FlowStmt>();
-		if (fs.word == FlowStmt::FlowWord::return_stmt)
-			return std::move(fs.val);
+		if (fs.word == FlowStmt::FlowWord::return_stmt) {
+			if (fs.val.is<std::vector<antlrcpp::Any>>()) {
+				std::vector<antlrcpp::Any> &ret = fs.val.as<std::vector<antlrcpp::Any>>();
+				for (auto &x : ret)
+					testVar(x);
+				if (ret.size() == 1) return std::move(ret[0]);
+				else return std::move(ret);
+			}
+			else return std::move(fs.val);
+		}
 	}
 	return {};
 }

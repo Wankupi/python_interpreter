@@ -24,22 +24,18 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx) 
 	if (!ctx->ASSIGN(0) && !ctx->augassign()) return visitChildren(ctx);
 	auto var_list = ctx->testlist();
 	int n = static_cast<int>(var_list.size()) - 1;
-	auto rvalues = var_list.back()->test();
+	std::vector<antlrcpp::Any> rvalues = visit(var_list.back()).as<std::vector<antlrcpp::Any>>();
 	int m = static_cast<int>(rvalues.size());
 	AugassignType opt = AugassignType::equal;
 	if (auto agu = ctx->augassign()) opt = visit(agu).as<AugassignType>();
-	for (int i = 0; i < m; ++i) {
-		auto p = rvalues[i];
-		antlrcpp::Any &&val = visit(p);
-		testVar(val);
-		for (int j = n - 1; j >= 0; --j) {
-			auto node = var_list[j]->test(i);
-			if (!node) continue;
-			antlrcpp::Any &&var = visit(node);
-			if (!var.is<VarType>()) {
-				val = std::move(var);
+	for (int i = 0; i < n; ++i) {
+		std::vector<antlrcpp::Any> lvalues = visit(var_list[i]).as<std::vector<antlrcpp::Any>>();
+		int mm = static_cast<int>(lvalues.size());
+		for (int j = 0; j < m && j < mm; ++j) {
+			antlrcpp::Any &var = lvalues[j];
+			antlrcpp::Any const& val = rvalues[j];
+			if (!var.is<VarType>())
 				continue;
-			}
 			if (opt == AugassignType::equal)
 				var.as<VarType>()->second = val;
 			else if (opt == AugassignType::add)
@@ -82,8 +78,12 @@ antlrcpp::Any EvalVisitor::visitFlow_stmt(Python3Parser::Flow_stmtContext *ctx) 
 	else if (auto ret = ctx->return_stmt()) {
 		if (auto test = ret->testlist()) {
 			antlrcpp::Any &&res = visit(test);
-			testVar(res);
-			return FlowStmt(FlowStmt::FlowWord::return_stmt, std::move(res));
+			std::vector<antlrcpp::Any> &vals = res.as<std::vector<antlrcpp::Any>>();
+			for (auto &x : vals)
+				testVar(x);
+			if (vals.size() == 1)
+				return FlowStmt(FlowStmt::FlowWord::return_stmt, std::move(vals[0]));
+			else return FlowStmt(FlowStmt::FlowWord::return_stmt, std::move(vals));
 		}
 		else return FlowStmt(FlowStmt::FlowWord::return_stmt);
 	}
@@ -309,6 +309,20 @@ antlrcpp::Any EvalVisitor::visitAtom(Python3Parser::AtomContext *ctx) {
 		}
 		return std::move(res);
 	}
+}
+
+antlrcpp::Any EvalVisitor::visitTestlist(Python3Parser::TestlistContext *ctx) {
+	std::vector<antlrcpp::Any> vals;
+	for (int i = 0; auto p = ctx->test(i); ++i) {
+		antlrcpp::Any &&res = visit(p);
+		if (res.is<std::vector<antlrcpp::Any>>()) {
+			std::vector<antlrcpp::Any> &v = res.as<std::vector<antlrcpp::Any>>();
+			for (auto &x : v)
+				vals.emplace_back(std::move(x));
+		}
+		else vals.emplace_back(std::move(res));
+	}
+	return vals;
 }
 
 /**

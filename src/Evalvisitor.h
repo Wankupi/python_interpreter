@@ -39,7 +39,7 @@ class EvalVisitor : public Python3BaseVisitor {
 	antlrcpp::Any visitAtom_expr(Python3Parser::Atom_exprContext *ctx) override;
 	// antlrcpp::Any visitTrailer(Python3Parser::TrailerContext *ctx) override;
 	antlrcpp::Any visitAtom(Python3Parser::AtomContext *ctx) override;
-	// antlrcpp::Any visitTestlist(Python3Parser::TestlistContext *ctx) override;
+	antlrcpp::Any visitTestlist(Python3Parser::TestlistContext *ctx) override;
 	// antlrcpp::Any visitArglist(Python3Parser::ArglistContext *ctx) override;
 	antlrcpp::Any visitArgument(Python3Parser::ArgumentContext *ctx) override;
 };
