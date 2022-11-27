@@ -6,7 +6,6 @@
 namespace kupi {
 
 struct FFT {
-public:
 	static constexpr int mod = 998244353;
 
 	static int pow(int x, int b) {
@@ -18,29 +17,12 @@ public:
 		}
 		return r;
 	}
-
 	static int W(int k, int n, int type) { return pow(type == 1 ? 3 : 332748118, (mod - 1) / n * k); }
 
 	static int pls(int a, int b) { return a + b < mod ? a + b : a + b - mod; }
-
 	static int dec(int a, int b) { return a < b ? a - b + mod : a - b; }
 
-	explicit FFT(int n) : limit(1) {
-		int m = 0;
-		while (limit <= n) {
-			++m;
-			limit <<= 1;
-		}
-		if (revs.find(limit) == revs.end()) {
-			std::vector<int> &rev = revs[limit];
-			rev.resize(limit);
-			for (int i = 1; i < limit; ++i)
-				rev[i] = (rev[i >> 1] >> 1) | ((i & 1) << (m - 1));
-		}
-	}
-
-	void DFT(std::vector<int> &f, int op) const {
-		std::vector<int> const &rev = revs[limit];
+	static void DFT(int *const f, int op, int limit, int const *const rev) {
 		for (int i = 0; i != limit; ++i)
 			if (rev[i] < i) std::swap(f[i], f[rev[i]]);
 		for (int len = 1; len < limit; len <<= 1) {
@@ -61,14 +43,7 @@ public:
 				f[i] = static_cast<int>(f[i] * inv % mod);
 		}
 	}
-
-public:
-	int limit;
-	static std::map<int, std::vector<int>> revs;
 };
-
-std::map<int, std::vector<int>> FFT::revs;
-
 void Int::remove_front_zero() {
 	while (data.back() == 0 && data.size() > 1)
 		data.pop_back();
@@ -192,24 +167,40 @@ Int &Int::operator-=(Int const &b) {
 }
 
 Int &Int::operator*=(Int const &b) {
-	int N = len() + b.len();
-	FFT r(N);
-	std::vector<int> &fa = data, fb(b.data);
-	fa.resize(r.limit, 0);
-	fb.resize(r.limit, 0);
-	r.DFT(fa, +1);
-	r.DFT(fb, +1);
-	for (int i = 0; i < r.limit; ++i)
-		fa[i] = static_cast<int>((long long)(fa[i]) * fb[i] % FFT::mod);
-	r.DFT(fa, -1);
-	int up = 0;
-	for (int i = 0; i < r.limit; ++i) {
-		fa[i] += up;
-		up = fa[i] / P;
-		fa[i] %= P;
+	if (data.size() == 1 && data[0] == 0) return (*this);
+	if (b.data.size() == 1 && b.data[0] == 0)
+		return *this = b;
+
+	int l1 = data.size(), l2 = b.data.size();
+	neg = neg != b.neg;
+	int n = 1, o = 0;
+	while (n < (l1 + l2))
+		n <<= 1, ++o;
+	int *r = new int[n + 1];
+	int *f = new int[n + 1];
+	int *g = new int[n + 1];
+	for (int i = 0; i <= n; ++i)
+		r[i] = f[i] = g[i] = 0;
+	for (int i = 0; i < l1; ++i)
+		f[i] = data[i];
+	for (int i = 0; i < l2; ++i)
+		g[i] = b.data[i];
+	for (int i = 1; i < n; ++i)
+		r[i] = (r[i >> 1] >> 1) | ((i & 1) << (o - 1));
+	FFT::DFT(f, 1, n, r);
+	FFT::DFT(g, 1, n, r);
+	for (int i = 0; i < n; ++i)
+		f[i] = 1ll * f[i] * g[i] % FFT::mod;
+	FFT::DFT(f, -1, n, r);
+	for (int i = 0; i < n; ++i) {
+		f[i + 1] += f[i] / P;
+		f[i] %= P;
 	}
-	neg = (neg != b.neg);
+	data = std::vector<int>(f, f + n + 1);
 	remove_front_zero();
+	delete[] r;
+	delete[] f;
+	delete[] g;
 	return *this;
 }
 
