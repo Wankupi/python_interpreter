@@ -6,6 +6,7 @@ build/
 gen/
 antlr-playground/.antlr
 venv/
+testcases/
 # Testcases
 testcases/hidden-testcases
 

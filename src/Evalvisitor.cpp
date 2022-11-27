@@ -26,6 +26,8 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx) 
 	int n = static_cast<int>(var_list.size()) - 1;
 	std::vector<antlrcpp::Any> rvalues = visit(var_list.back()).as<std::vector<antlrcpp::Any>>();
 	int m = static_cast<int>(rvalues.size());
+	for (auto &x : rvalues)
+		testVar(x);
 	AugassignType opt = AugassignType::equal;
 	if (auto agu = ctx->augassign()) opt = visit(agu).as<AugassignType>();
 	for (int i = 0; i < n; ++i) {
