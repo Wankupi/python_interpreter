@@ -5,7 +5,7 @@ cmake-build-release/
 build/
 gen/
 antlr-playground/.antlr
-
+venv/
 # Testcases
 testcases/hidden-testcases
 

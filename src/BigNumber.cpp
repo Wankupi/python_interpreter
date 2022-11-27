@@ -12,8 +12,8 @@ public:
 	static int pow(int x, int b) {
 		int r = 1;
 		while (b) {
-			if (b & 1) r = (long long)r * x % mod;
-			x = (long long)x * x % mod;
+			if (b & 1) r = static_cast<int>((long long)r * x % mod);
+			x = static_cast<int>((long long)x * x % mod);
 			b >>= 1;
 		}
 		return r;
@@ -39,7 +39,7 @@ public:
 		}
 	}
 
-	void DFT(std::vector<int> &f, int op) {
+	void DFT(std::vector<int> &f, int op) const {
 		std::vector<int> const &rev = revs[limit];
 		for (int i = 0; i != limit; ++i)
 			if (rev[i] < i) std::swap(f[i], f[rev[i]]);
@@ -49,16 +49,16 @@ public:
 				int ome = 1;
 				for (int i = 0; i < len; ++i) {
 					int x = f[l + i], y = f[l + len + i];
-					f[l + i] = pls(x, (long long)ome * y % mod);
-					f[l + len + i] = dec(x, (long long)ome * y % mod);
-					ome = (long long)ome * W1 % mod;
+					f[l + i] = pls(x, static_cast<int>((long long)ome * y % mod));
+					f[l + len + i] = dec(x, static_cast<int>((long long)ome * y % mod));
+					ome = static_cast<int>((long long)ome * W1 % mod);
 				}
 			}
 		}
 		if (op == -1) {
 			long long inv = pow(limit, mod - 2);
 			for (int i = 0; i < limit; ++i)
-				f[i] = f[i] * inv % mod;
+				f[i] = static_cast<int>(f[i] * inv % mod);
 		}
 	}
 
@@ -66,34 +66,13 @@ public:
 	int limit;
 	static std::map<int, std::vector<int>> revs;
 };
+
 std::map<int, std::vector<int>> FFT::revs;
 
-void number_basis::remove_front_zero() {
+void Int::remove_front_zero() {
 	while (data.back() == 0 && data.size() > 1)
 		data.pop_back();
 	if (data.size() == 1 && data[0] == 0) neg = false;
-}
-
-Int::Int(long long x) {
-	if (x < 0) {
-		neg = true;
-		x = -x;
-	}
-	int bit = 0;
-	long long _x = x;
-	while (_x) {
-		++bit;
-		_x /= P;
-	}
-	if (bit == 0)
-		data = {0};
-	else {
-		data.reserve(bit);
-		while (x) {
-			data.emplace_back(x % P);
-			x /= P;
-		}
-	}
 }
 
 Int::Int(__int128 x) {
@@ -119,31 +98,34 @@ Int::Int(__int128 x) {
 }
 
 Int::Int(std::string const &str) {
-	data.reserve((str.length() + pressBit - 1) / pressBit);
-	ValueType val = 0;
-	int haveBits = 0;
-	for (auto cur = str.crbegin(); cur != str.crend(); ++cur) {
-		if (!isdigit(*cur)) {
-			if (*cur == '-') neg = true;
-			break;
-		}
-		val = val + pow_10(haveBits) * (*cur - '0');
-		++haveBits;
-		if (haveBits == pressBit) {
-			data.emplace_back(val);
-			val = 0;
-			haveBits = 0;
-		}
-	}
-	if (haveBits > 0)
-		data.emplace_back(val);
-	if (data.empty()) data.emplace_back(0);
-	remove_front_zero();
+	this->read(str);
 }
 
-Int Int::operator-() const { return Int(!neg, data); }
+Int Int::operator-() const { return {!neg, data}; }
 
 Int Int::operator+() const { return *this; }
+
+Int &Int::operator<<=(int x) {
+	if (x <= 0) return *this;
+	data.resize(data.size() + x);
+	for (int i = data.size() - 1; i >= x; --i)
+		data[i] = data[i - x];
+	for (int i = 0; i < x; ++i)
+		data[i] = 0;
+	return *this;
+}
+
+Int &Int::operator>>=(int x) {
+	if (x <= 0) return *this;
+	if (x >= data.size()) {
+		data = {0};
+		return *this;
+	}
+	for (int i = 0; i + x < data.size(); ++i)
+		data[i] = data[i + x];
+	data.resize(data.size() - x);
+	return *this;
+}
 
 Int &Int::operator+=(Int const &b) {
 	if (neg == b.neg) {
@@ -180,7 +162,7 @@ Int &Int::operator-=(Int const &b) {
 		for (int i = 0; i < b.len(); ++i)
 			data[i] -= b[i];
 		remove_front_zero();
-		mxlen = data.size();
+		mxlen = static_cast<int>(data.size());
 
 		bool more_than_zero = data[mxlen - 1] > 0;
 		if (!more_than_zero) {
@@ -218,7 +200,7 @@ Int &Int::operator*=(Int const &b) {
 	r.DFT(fa, +1);
 	r.DFT(fb, +1);
 	for (int i = 0; i < r.limit; ++i)
-		fa[i] = (long long)(fa[i]) * fb[i] % FFT::mod;
+		fa[i] = static_cast<int>((long long)(fa[i]) * fb[i] % FFT::mod);
 	r.DFT(fa, -1);
 	int up = 0;
 	for (int i = 0; i < r.limit; ++i) {
@@ -247,120 +229,76 @@ Int operator*(const Int &a, const Int &b) {
 	return Int(a) *= b;
 }
 
-class Float : public Int {
-public:
-	explicit Float(Int x) : Int(std::move(x)), k(0) {}
-	explicit Float(double x);
-	Float(Float const &) = default;
-	Float(Float &&) = default;
-	Float &operator<<=(int t) {
-		k += t;
-		return *this;
+Int div(Int const &a, Int const &b) {
+	if (b == 1) return a;
+	std::vector<Int> sta;
+	std::vector<Int> s;
+	Int ret = b, tem = 1;
+	while (ret <= a) {
+		sta.push_back(ret);
+		s.push_back(tem);
+		ret += ret;
+		tem += tem;
 	}
-
-	Float &operator>>=(int t) {
-		k -= t;
-		return *this;
+	ret = a;
+	tem = 0;
+	int len = sta.size() - 1;
+	while (len >= 0) {
+		Int tmp = sta[len];
+		if (tmp <= ret) ret -= tmp, tem += s[len];
+		len--;
 	}
-	Float &operator*=(Float const &b);
-	friend Float operator*(Float const &a, Float const &b);
-
-	void cut(int bit) {
-		int toCut = data.size() - bit;
-		if (toCut <= 0) return;
-		k += toCut;
-		data.erase(data.begin(), data.begin() + std::min(toCut, int(data.size())));
-	}
-
-	Int &toInt() {
-		cut(int(data.size()) + k);
-		if (data.empty()) data = {0};
-		return *this;
-	}
-
-	Float &minus_2_float();
-
-	friend Float getInverse(Int const &, int);
-
-private:
-	int k;
-};
-
-Float &Float::operator*=(Float const &b) {
-	dynamic_cast<Int &>(*this) *= dynamic_cast<Int const &>(b);
-	k += b.k;
-	return *this;
+	return tem;
 }
 
-Float operator*(Float const &a, Float const &b) {
-	return Float(a) *= b;
-}
-
-// not concern sign
-Float &Float::minus_2_float() {
-	int n = -k + 1;
-	if (int(data.size()) < n)
-		data.resize(n);
-
-	bool down = false;
-	for (int i = 0; i < n; ++i) {
-		if (i == n - 1)
-			data[i] = 2 - data[i] - int(down);
-		else {
-			data[i] = -data[i] - int(down);
-			if (data[i] < 0) {
-				data[i] += P;
-				down = true;
-			}
-			else
-				down = false;
-		}
-	}
-	return *this;
-}
-
-Float getInverse(Int const &_a, int bit_need) {
-	Float a(_a);
-	a >>= a.len();
-	Float x(Int(P / (a[a.len() - 1] + 1)));
-	auto do_once = [&x, &a](int bit) {
-		Float &&r = a * x;
-		r.cut(bit);
-		x *= r.minus_2_float();
-		x.cut(bit);
-	};
-	for (int k = 1; k <= 4; ++k)
-		do_once(4);
-	for (int s = 4; s <= bit_need; s <<= 1)
-		do_once(s * 2);
-	x.cut(bit_need);
-	x >>= a.len();
-	x.neg = _a.neg;
-	return x;
+Int getInverse(Int const &a) {
+	int m = a.len();
+	if (m <= 9)
+		return div(Int(1) <<= (m << 1), a);
+	int k = (m + 5) >> 1;
+	Int b = a;
+	b >>= (m - k);
+	Int c = getInverse(b);
+	Int c1 = c + c;
+	c1 <<= (m - k);
+	b = a * c * c;
+	b >>= (k << 1);
+	Int d = c1 - b;
+	d -= 1;
+	c = (Int(1) <<= (m << 1)) - d * a;
+	if (c >= a) d += 1;
+	return d;
 }
 
 Int operator/(const Int &a, const Int &b) {
+	int l1 = a.data.size(), l2 = b.data.size();
+	if (l1 < l2)
+		return -(a.neg != b.neg);
 	if (a.len() <= 17 && b.len() <= 17) {
 		__int128 v1 = a.getFrontBits(17), v2 = b.getFrontBits(17);
 		if (a.neg == b.neg) return v1 / v2;
 		return -(v1 + v2 - 1) / v2;
 	}
-	Float invb = getInverse(b, std::max(a.len(), b.len()));
-	Float r = Float(a) * invb;
-	Int &ret = r.toInt();
-	ret.neg = false;
-	Int nowLast = ret * b;
-	nowLast.neg = a.neg;
-	nowLast = a - nowLast;
-	nowLast.remove_front_zero();
-	nowLast.neg = b.neg;
-	while (cmpAbsLessEq(b, nowLast)) {
-		nowLast -= b;
-		ret += 1;
+	bool new_neg = a.neg != b.neg;
+	Int x = a, y = b;
+	x.neg = y.neg = false;
+	if (new_neg) x += y - 1;
+	if (l1 > (l2 << 1)) {
+		int tmp = l1 - (l2 << 1);
+		x <<= tmp;
+		y <<= tmp;
+		l2 = l1 - l2;
+		l1 = l2 << 1;
 	}
-	if (a.neg != b.neg && !cmpAbsEq(nowLast, 0)) ret += 1;
-	ret.neg = (a.neg != b.neg);
-	return ret;
+	Int z = getInverse(y);
+	y = x * z;
+	y >>= (l2 << 1);
+	x = b * y;
+	x.neg = a.neg;
+	Int ret = a - x;
+	if (cmpAbsLessEq(b, ret)) y += Int(1);
+	y.neg = new_neg;
+	return y;
 }
 
 Int::operator int() const {
@@ -381,17 +319,59 @@ std::string Int::to_string() const {
 	buff.reserve(data.size() * pressBit + 1);
 	for (ValueType v : data) {
 		for (int j = 0; j < pressBit; ++j) {
-			buff.push_back(v % 10 + '0');
+			buff.push_back(static_cast<char>(v % 10 + '0'));
 			v /= 10;
 		}
 	}
 	while (buff.size() > 1 && buff.back() == '0')
 		buff.pop_back();
 	if (neg && !(buff.size() == 1 && buff[0] == '0')) buff.push_back('-');
-	int n = buff.size();
+	int n = static_cast<int>(buff.size());
 	for (int i = 0; i < n - i - 1; ++i)
 		std::swap(buff[i], buff[n - i - 1]);
 	return buff;
+}
+
+void Int::read(std::string const &str) {
+	data.clear();
+	neg = false;
+	int ed = str.find_first_of('.');
+	if (ed == std::string::npos) ed = str.length();
+	--ed;
+	int bg = str.find_first_of('-');
+	if (bg == std::string::npos || bg > ed) bg = 0;
+	data.reserve((ed - bg + 1 + pressBit - 1) / pressBit);
+	ValueType val = 0;
+	int haveBits = 0;
+	for (auto cur = ed; cur >= bg; --cur) {
+		char c = str[cur];
+		if (!isdigit(c)) {
+			if (c == '-') neg = true;
+			break;
+		}
+		val = val + pow_10(haveBits) * (c - '0');
+		++haveBits;
+		if (haveBits == pressBit) {
+			data.emplace_back(val);
+			val = 0;
+			haveBits = 0;
+		}
+	}
+	if (haveBits > 0)
+		data.emplace_back(val);
+	if (data.empty()) data.emplace_back(0);
+	remove_front_zero();
+}
+
+void Int::print() const {
+	std::cout << *this;
+}
+
+std::istream &operator>>(std::istream &is, Int &x) {
+	std::string tmp;
+	is >> tmp;
+	x.read(tmp);
+	return is;
 }
 
 std::ostream &operator<<(std::ostream &os, const Int &x) {

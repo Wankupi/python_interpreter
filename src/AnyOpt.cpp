@@ -154,30 +154,35 @@ void setAnyNegative(antlrcpp::Any &a) {
 	}
 }
 
+/**
+ * @attention no need consider none, str < non-str
+ * @details possible compare type
+ * @details str \< str,
+ * @details int \< float, float \< int, float \< float, float \< bool,
+ * @details int \< int, int \< bool,
+ * @details bool \< bool
+ */
 bool operator<(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.is<string>() || b.is<string>())
-		return toStr(a) < toStr(b);
-	else if (a.is<double>() || b.is<double>())
-		return toFloat(a) < toFloat(b);
-	else if (a.is<Int>() || b.is<Int>())
-		return toInt(a) < toInt(b);
-	else
-		return toBool(a) < toBool(b);
+	if (a.is<string>()) return b.is<string>() && a.as<string>() < b.as<string>();
+	else if (a.is<double>() || b.is<double>()) return toFloat(a) < toFloat(b);
+	else if (a.is<Int>() || b.is<Int>()) return toInt(a) < toInt(b);
+	else return toBool(a) < toBool(b);
 }
 
 bool operator>(antlrcpp::Any const &a, antlrcpp::Any const &b) {
 	return b < a;
 }
 
+/**
+ * @attention None only equal to None
+ * @attention str only equal to str
+ */
 bool operator==(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.is<string>() || b.is<string>())
-		return toStr(a) == toStr(b);
-	else if (a.is<double>() || b.is<double>())
-		return toFloat(a) == toFloat(b);
-	else if (a.is<Int>() || b.is<Int>())
-		return toInt(a) == toInt(b);
-	else
-		return toBool(a) == toBool(b);
+	if (a.isNull() || b.isNull()) return a.isNull() && b.isNull();
+	if (a.is<string>() || b.is<string>()) return a.is<string>() && b.is<string>() && a.as<string>() == b.as<string>();
+	else if (a.is<double>() || b.is<double>()) return toFloat(a) == toFloat(b);
+	else if (a.is<Int>() || b.is<Int>()) return toInt(a) == toInt(b);
+	else return toBool(a) == toBool(b);
 }
 
 bool operator>=(antlrcpp::Any const &a, antlrcpp::Any const &b) {
