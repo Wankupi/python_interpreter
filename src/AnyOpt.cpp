@@ -60,7 +60,7 @@ std::string toStr(antlrcpp::Any const &a) {
 	else if (a.is<bool>())
 		return a.as<bool>() ? "True" : "False";
 	else
-		return string{};
+		return "None";
 }
 
 antlrcpp::Any operator+(antlrcpp::Any const &a, antlrcpp::Any const &b) {
