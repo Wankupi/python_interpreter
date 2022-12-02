@@ -35,7 +35,7 @@ antlrcpp::Any EvalVisitor::visitExpr_stmt(Python3Parser::Expr_stmtContext *ctx) 
 		int mm = static_cast<int>(lvalues.size());
 		for (int j = 0; j < m && j < mm; ++j) {
 			antlrcpp::Any &var = lvalues[j];
-			antlrcpp::Any const& val = rvalues[j];
+			antlrcpp::Any const &val = rvalues[j];
 			if (!var.is<VarType>())
 				continue;
 			if (opt == AugassignType::equal)
@@ -93,10 +93,14 @@ antlrcpp::Any EvalVisitor::visitFlow_stmt(Python3Parser::Flow_stmtContext *ctx) 
 }
 
 antlrcpp::Any EvalVisitor::visitIf_stmt(Python3Parser::If_stmtContext *ctx) {
+	static std::map<Python3Parser::If_stmtContext *, std::vector<Python3Parser::TestContext *>> TESTS;
 	if (!ctx->IF()) return {};
+	if (TESTS.find(ctx) == TESTS.end())
+			TESTS[ctx] = ctx->test();
+	std::vector<Python3Parser::TestContext *> const & tests = TESTS[ctx];
 	int kth = 0;
-	while (ctx->test(kth)) {
-		antlrcpp::Any &&val = visit(ctx->test(kth));
+	while (tests[kth]) {
+		antlrcpp::Any &&val = visit(tests[kth]);
 		testVar(val);
 		if (toBool(val))
 			return visit(ctx->suite(kth));
@@ -133,19 +137,18 @@ antlrcpp::Any EvalVisitor::visitWhile_stmt(Python3Parser::While_stmtContext *ctx
 antlrcpp::Any EvalVisitor::visitSuite(Python3Parser::SuiteContext *ctx) {
 	if (ctx->simple_stmt()) {
 		antlrcpp::Any &&val = visit(ctx->simple_stmt());
-		if (val.is<FlowStmt>()) return std::move(val);
+		if (val.is<FlowStmt>()) return val;
 	}
 	for (int i = 0; ctx->stmt(i); ++i) {
 		antlrcpp::Any &&val = visit(ctx->stmt(i));
-		if (val.is<FlowStmt>()) return std::move(val);
+		if (val.is<FlowStmt>()) return val;
 	}
 	return {};
 }
 
 antlrcpp::Any EvalVisitor::visitOr_test(Python3Parser::Or_testContext *ctx) {
 	if (ctx->OR(0)) {
-		auto v2 = ctx->and_test();
-		for (auto p : v2) {
+		for (int i = 0; auto p = ctx->and_test(i); ++i) {
 			antlrcpp::Any &&val = visit(p);
 			testVar(val);
 			if (toBool(val))
@@ -159,8 +162,7 @@ antlrcpp::Any EvalVisitor::visitOr_test(Python3Parser::Or_testContext *ctx) {
 
 antlrcpp::Any EvalVisitor::visitAnd_test(Python3Parser::And_testContext *ctx) {
 	if (ctx->AND(0)) {
-		auto v2 = ctx->not_test();
-		for (auto p : v2) {
+		for (int i = 0; auto p = ctx->not_test(i); ++i) {
 			antlrcpp::Any &&val = visit(p);
 			testVar(val);
 			if (!toBool(val))
@@ -219,7 +221,7 @@ antlrcpp::Any EvalVisitor::visitArith_expr(Python3Parser::Arith_exprContext *ctx
 	auto opt = ctx->addorsub_op();
 	antlrcpp::Any &&res = visit(terms[0]);
 	int n = static_cast<int>(terms.size());
-	if (n <= 1) return std::move(res);
+	if (n <= 1) return res;
 	testVar(res);
 	for (int i = 1; i < n; ++i) {
 		antlrcpp::Any &&val = visit(terms[i]);
@@ -229,15 +231,15 @@ antlrcpp::Any EvalVisitor::visitArith_expr(Python3Parser::Arith_exprContext *ctx
 		else if (opt[i - 1]->MINUS())
 			res -= val;
 	}
-	return std::move(res);
+	return res;
 }
 
 antlrcpp::Any EvalVisitor::visitTerm(Python3Parser::TermContext *ctx) {
 	auto factors = ctx->factor();
 	auto opt = ctx->muldivmod_op();
-	antlrcpp::Any &&res = visit(factors[0]);
+	antlrcpp::Any &&res = visitFactor(factors[0]);
 	int n = static_cast<int>(factors.size());
-	if (n <= 1) return std::move(res);
+	if (n <= 1) return res;
 	testVar(res);
 	for (int i = 1; i < n; ++i) {
 		antlrcpp::Any &&val = visit(factors[i]);
@@ -251,7 +253,7 @@ antlrcpp::Any EvalVisitor::visitTerm(Python3Parser::TermContext *ctx) {
 		else if (opt[i - 1]->MOD())
 			res %= val;
 	}
-	return std::move(res);
+	return res;
 }
 
 antlrcpp::Any EvalVisitor::visitFactor(Python3Parser::FactorContext *ctx) {
@@ -260,7 +262,7 @@ antlrcpp::Any EvalVisitor::visitFactor(Python3Parser::FactorContext *ctx) {
 	antlrcpp::Any &&val = visit(ctx->factor());
 	testVar(val);
 	if (ctx->MINUS()) setAnyNegative(val);
-	return std::move(val);
+	return val;
 }
 
 antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx) {
@@ -272,19 +274,21 @@ antlrcpp::Any EvalVisitor::visitAtom_expr(Python3Parser::Atom_exprContext *ctx) 
 			return f->call(*this, ctx->trailer()->arglist());
 		}
 		else
-			return std::move(res);
+			return res;
 	}
 	else
-		return std::move(res);
+		return res;
 }
 
 antlrcpp::Any EvalVisitor::visitAtom(Python3Parser::AtomContext *ctx) {
+	static std::map<Python3Parser::AtomContext *, std::string> TEXT;
+	if (TEXT.find(ctx) == TEXT.end()) TEXT[ctx] = ctx->getText();
 	if (ctx->NAME())
-		return scope.find(ctx->getText());
+		return scope.find(TEXT[ctx]);
 	else if (ctx->NUMBER()) {
-		string &&s = ctx->getText();
+		string const &s = TEXT[ctx];
 		if (s.find('.') == string::npos)
-			return Int(ctx->getText());
+			return Int(s);
 		else
 			return std::stod(s);
 	}
@@ -309,7 +313,7 @@ antlrcpp::Any EvalVisitor::visitAtom(Python3Parser::AtomContext *ctx) {
 			string tmp = p->getText();
 			res.append(p->getText(), 1, tmp.length() - 2);
 		}
-		return std::move(res);
+		return res;
 	}
 }
 
@@ -341,6 +345,6 @@ antlrcpp::Any EvalVisitor::visitArgument(Python3Parser::ArgumentContext *ctx) {
 	else {
 		antlrcpp::Any &&val = visit(ctx->test(0));
 		testVar(val);
-		return std::move(val);
+		return val;
 	}
 }
