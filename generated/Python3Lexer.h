@@ -1,38 +1,42 @@
 
-// Generated from Python3.g4 by ANTLR 4.7.2
+#include <list>
+#include <regex>
+
+
+// Generated from Python3Lexer.g4 by ANTLR 4.13.1
 
 #pragma once
 
 
 #include "antlr4-runtime.h"
-#include "Python3Parser.h"
-#include <regex>
+
 
 
 
 class  Python3Lexer : public antlr4::Lexer {
 public:
   enum {
-    STRING = 1, NUMBER = 2, INTEGER = 3, DEF = 4, RETURN = 5, IF = 6, ELIF = 7, 
-    ELSE = 8, WHILE = 9, FOR = 10, IN = 11, OR = 12, AND = 13, NOT = 14, 
-    NONE = 15, TRUE = 16, FALSE = 17, CONTINUE = 18, BREAK = 19, NEWLINE = 20, 
-    NAME = 21, STRING_LITERAL = 22, BYTES_LITERAL = 23, DECIMAL_INTEGER = 24, 
-    OCT_INTEGER = 25, HEX_INTEGER = 26, BIN_INTEGER = 27, FLOAT_NUMBER = 28, 
-    IMAG_NUMBER = 29, DOT = 30, ELLIPSIS = 31, STAR = 32, OPEN_PAREN = 33, 
-    CLOSE_PAREN = 34, COMMA = 35, COLON = 36, SEMI_COLON = 37, POWER = 38, 
-    ASSIGN = 39, OPEN_BRACK = 40, CLOSE_BRACK = 41, OR_OP = 42, XOR = 43, 
-    AND_OP = 44, LEFT_SHIFT = 45, RIGHT_SHIFT = 46, ADD = 47, MINUS = 48, 
-    DIV = 49, MOD = 50, IDIV = 51, NOT_OP = 52, OPEN_BRACE = 53, CLOSE_BRACE = 54, 
-    LESS_THAN = 55, GREATER_THAN = 56, EQUALS = 57, GT_EQ = 58, LT_EQ = 59, 
-    NOT_EQ_1 = 60, NOT_EQ_2 = 61, AT = 62, ARROW = 63, ADD_ASSIGN = 64, 
-    SUB_ASSIGN = 65, MULT_ASSIGN = 66, AT_ASSIGN = 67, DIV_ASSIGN = 68, 
-    MOD_ASSIGN = 69, AND_ASSIGN = 70, OR_ASSIGN = 71, XOR_ASSIGN = 72, LEFT_SHIFT_ASSIGN = 73, 
-    RIGHT_SHIFT_ASSIGN = 74, POWER_ASSIGN = 75, IDIV_ASSIGN = 76, SKIP_ = 77, 
-    UNKNOWN_CHAR = 78
+    INDENT = 1, DEDENT = 2, STRING = 3, NUMBER = 4, INTEGER = 5, DEF = 6, 
+    RETURN = 7, IF = 8, ELIF = 9, ELSE = 10, WHILE = 11, FOR = 12, IN = 13, 
+    OR = 14, AND = 15, NOT = 16, NONE = 17, TRUE = 18, FALSE = 19, CONTINUE = 20, 
+    BREAK = 21, NEWLINE = 22, NAME = 23, STRING_LITERAL = 24, BYTES_LITERAL = 25, 
+    DECIMAL_INTEGER = 26, OCT_INTEGER = 27, HEX_INTEGER = 28, BIN_INTEGER = 29, 
+    FLOAT_NUMBER = 30, IMAG_NUMBER = 31, DOT = 32, ELLIPSIS = 33, STAR = 34, 
+    OPEN_PAREN = 35, CLOSE_PAREN = 36, COMMA = 37, COLON = 38, SEMI_COLON = 39, 
+    POWER = 40, ASSIGN = 41, OPEN_BRACK = 42, CLOSE_BRACK = 43, OR_OP = 44, 
+    XOR = 45, AND_OP = 46, LEFT_SHIFT = 47, RIGHT_SHIFT = 48, ADD = 49, 
+    MINUS = 50, DIV = 51, MOD = 52, IDIV = 53, NOT_OP = 54, OPEN_BRACE = 55, 
+    CLOSE_BRACE = 56, LESS_THAN = 57, GREATER_THAN = 58, EQUALS = 59, GT_EQ = 60, 
+    LT_EQ = 61, NOT_EQ_1 = 62, NOT_EQ_2 = 63, AT = 64, ARROW = 65, ADD_ASSIGN = 66, 
+    SUB_ASSIGN = 67, MULT_ASSIGN = 68, AT_ASSIGN = 69, DIV_ASSIGN = 70, 
+    MOD_ASSIGN = 71, AND_ASSIGN = 72, OR_ASSIGN = 73, XOR_ASSIGN = 74, LEFT_SHIFT_ASSIGN = 75, 
+    RIGHT_SHIFT_ASSIGN = 76, POWER_ASSIGN = 77, IDIV_ASSIGN = 78, SKIP_ = 79, 
+    UNKNOWN_CHAR = 80
   };
 
-  Python3Lexer(antlr4::CharStream *input);
-  ~Python3Lexer();
+  explicit Python3Lexer(antlr4::CharStream *input);
+
+  ~Python3Lexer() override;
 
 
       // A queue where extra tokens are pushed on (see the NEWLINE lexer rule).
@@ -67,7 +71,7 @@ public:
 
 
            // First emit an extra line break that serves as the end of the statement.
-           std::unique_ptr<antlr4::Token> tmp=commonToken(Python3Parser::NEWLINE, "\n");
+           std::unique_ptr<antlr4::Token> tmp=commonToken(Python3Lexer::NEWLINE, "\n");
            this->emit(std::move(tmp));
 
            // Now emit as much DEDENT tokens as needed.
@@ -78,7 +82,7 @@ public:
            }
 
            // Put the EOF back on the token stream.
-           this->emit(commonToken(Python3Parser::EOF, "<EOF>"));
+           this->emit(commonToken(static_cast<int>(Python3Lexer::EOF), "<EOF>"));
          }
 
          std::unique_ptr<antlr4::Token> next = Lexer::nextToken();
@@ -99,7 +103,7 @@ public:
        }
 
    private: std::unique_ptr<antlr4::Token> createDedent() {
-         auto dedent = commonToken(Python3Parser::DEDENT, "");
+         auto dedent = commonToken(Python3Lexer::DEDENT, "");
          dedent->setLine(this->lastToken->getLine());
          return std::move(dedent);
        }
@@ -140,34 +144,31 @@ public:
          return Lexer::getCharPositionInLine() == 0 && Lexer::getLine() == 1;
        }
 
-  virtual std::string getGrammarFileName() const override;
-  virtual const std::vector<std::string>& getRuleNames() const override;
 
-  virtual const std::vector<std::string>& getChannelNames() const override;
-  virtual const std::vector<std::string>& getModeNames() const override;
-  virtual const std::vector<std::string>& getTokenNames() const override; // deprecated, use vocabulary instead
-  virtual antlr4::dfa::Vocabulary& getVocabulary() const override;
+  std::string getGrammarFileName() const override;
 
-  virtual const std::vector<uint16_t> getSerializedATN() const override;
-  virtual const antlr4::atn::ATN& getATN() const override;
+  const std::vector<std::string>& getRuleNames() const override;
 
-  virtual void action(antlr4::RuleContext *context, size_t ruleIndex, size_t actionIndex) override;
-  virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
+  const std::vector<std::string>& getChannelNames() const override;
+
+  const std::vector<std::string>& getModeNames() const override;
+
+  const antlr4::dfa::Vocabulary& getVocabulary() const override;
+
+  antlr4::atn::SerializedATNView getSerializedATN() const override;
+
+  const antlr4::atn::ATN& getATN() const override;
+
+  void action(antlr4::RuleContext *context, size_t ruleIndex, size_t actionIndex) override;
+
+  bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
+
+  // By default the static state used to implement the lexer is lazily initialized during the first
+  // call to the constructor. You can call this function if you wish to initialize the static state
+  // ahead of time.
+  static void initialize();
 
 private:
-  static std::vector<antlr4::dfa::DFA> _decisionToDFA;
-  static antlr4::atn::PredictionContextCache _sharedContextCache;
-  static std::vector<std::string> _ruleNames;
-  static std::vector<std::string> _tokenNames;
-  static std::vector<std::string> _channelNames;
-  static std::vector<std::string> _modeNames;
-
-  static std::vector<std::string> _literalNames;
-  static std::vector<std::string> _symbolicNames;
-  static antlr4::dfa::Vocabulary _vocabulary;
-  static antlr4::atn::ATN _atn;
-  static std::vector<uint16_t> _serializedATN;
-
 
   // Individual action functions triggered by action() above.
   void NEWLINEAction(antlr4::RuleContext *context, size_t actionIndex);
@@ -181,9 +182,5 @@ private:
   // Individual semantic predicate functions triggered by sempred() above.
   bool NEWLINESempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
 
-  struct Initializer {
-    Initializer();
-  };
-  static Initializer _init;
 };
 

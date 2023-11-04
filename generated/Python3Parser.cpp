@@ -1,34 +1,236 @@
 
-// Generated from Python3.g4 by ANTLR 4.7.2
+// Generated from Python3Parser.g4 by ANTLR 4.13.1
 
 
-#include "Python3Listener.h"
-#include "Python3Visitor.h"
+#include "Python3ParserVisitor.h"
 
 #include "Python3Parser.h"
 
 
 using namespace antlrcpp;
+
 using namespace antlr4;
 
-Python3Parser::Python3Parser(TokenStream *input) : Parser(input) {
-  _interpreter = new atn::ParserATNSimulator(this, _atn, _decisionToDFA, _sharedContextCache);
+namespace {
+
+struct Python3ParserStaticData final {
+  Python3ParserStaticData(std::vector<std::string> ruleNames,
+                        std::vector<std::string> literalNames,
+                        std::vector<std::string> symbolicNames)
+      : ruleNames(std::move(ruleNames)), literalNames(std::move(literalNames)),
+        symbolicNames(std::move(symbolicNames)),
+        vocabulary(this->literalNames, this->symbolicNames) {}
+
+  Python3ParserStaticData(const Python3ParserStaticData&) = delete;
+  Python3ParserStaticData(Python3ParserStaticData&&) = delete;
+  Python3ParserStaticData& operator=(const Python3ParserStaticData&) = delete;
+  Python3ParserStaticData& operator=(Python3ParserStaticData&&) = delete;
+
+  std::vector<antlr4::dfa::DFA> decisionToDFA;
+  antlr4::atn::PredictionContextCache sharedContextCache;
+  const std::vector<std::string> ruleNames;
+  const std::vector<std::string> literalNames;
+  const std::vector<std::string> symbolicNames;
+  const antlr4::dfa::Vocabulary vocabulary;
+  antlr4::atn::SerializedATNView serializedATN;
+  std::unique_ptr<antlr4::atn::ATN> atn;
+};
+
+::antlr4::internal::OnceFlag python3parserParserOnceFlag;
+#if ANTLR4_USE_THREAD_LOCAL_CACHE
+static thread_local
+#endif
+Python3ParserStaticData *python3parserParserStaticData = nullptr;
+
+void python3parserParserInitialize() {
+#if ANTLR4_USE_THREAD_LOCAL_CACHE
+  if (python3parserParserStaticData != nullptr) {
+    return;
+  }
+#else
+  assert(python3parserParserStaticData == nullptr);
+#endif
+  auto staticData = std::make_unique<Python3ParserStaticData>(
+    std::vector<std::string>{
+      "file_input", "funcdef", "parameters", "typedargslist", "tfpdef", 
+      "stmt", "simple_stmt", "small_stmt", "expr_stmt", "augassign", "flow_stmt", 
+      "break_stmt", "continue_stmt", "return_stmt", "compound_stmt", "if_stmt", 
+      "while_stmt", "suite", "test", "or_test", "and_test", "not_test", 
+      "comparison", "comp_op", "arith_expr", "addorsub_op", "term", "muldivmod_op", 
+      "factor", "atom_expr", "trailer", "atom", "testlist", "arglist", "argument"
+    },
+    std::vector<std::string>{
+      "", "", "", "", "", "", "'def'", "'return'", "'if'", "'elif'", "'else'", 
+      "'while'", "'for'", "'in'", "'or'", "'and'", "'not'", "'None'", "'True'", 
+      "'False'", "'continue'", "'break'", "", "", "", "", "", "", "", "", 
+      "", "", "'.'", "'...'", "'*'", "'('", "')'", "','", "':'", "';'", 
+      "'**'", "'='", "'['", "']'", "'|'", "'^'", "'&'", "'<<'", "'>>'", 
+      "'+'", "'-'", "'/'", "'%'", "'//'", "'~'", "'{'", "'}'", "'<'", "'>'", 
+      "'=='", "'>='", "'<='", "'<>'", "'!='", "'@'", "'->'", "'+='", "'-='", 
+      "'*='", "'@='", "'/='", "'%='", "'&='", "'|='", "'^='", "'<<='", "'>>='", 
+      "'**='", "'//='"
+    },
+    std::vector<std::string>{
+      "", "INDENT", "DEDENT", "STRING", "NUMBER", "INTEGER", "DEF", "RETURN", 
+      "IF", "ELIF", "ELSE", "WHILE", "FOR", "IN", "OR", "AND", "NOT", "NONE", 
+      "TRUE", "FALSE", "CONTINUE", "BREAK", "NEWLINE", "NAME", "STRING_LITERAL", 
+      "BYTES_LITERAL", "DECIMAL_INTEGER", "OCT_INTEGER", "HEX_INTEGER", 
+      "BIN_INTEGER", "FLOAT_NUMBER", "IMAG_NUMBER", "DOT", "ELLIPSIS", "STAR", 
+      "OPEN_PAREN", "CLOSE_PAREN", "COMMA", "COLON", "SEMI_COLON", "POWER", 
+      "ASSIGN", "OPEN_BRACK", "CLOSE_BRACK", "OR_OP", "XOR", "AND_OP", "LEFT_SHIFT", 
+      "RIGHT_SHIFT", "ADD", "MINUS", "DIV", "MOD", "IDIV", "NOT_OP", "OPEN_BRACE", 
+      "CLOSE_BRACE", "LESS_THAN", "GREATER_THAN", "EQUALS", "GT_EQ", "LT_EQ", 
+      "NOT_EQ_1", "NOT_EQ_2", "AT", "ARROW", "ADD_ASSIGN", "SUB_ASSIGN", 
+      "MULT_ASSIGN", "AT_ASSIGN", "DIV_ASSIGN", "MOD_ASSIGN", "AND_ASSIGN", 
+      "OR_ASSIGN", "XOR_ASSIGN", "LEFT_SHIFT_ASSIGN", "RIGHT_SHIFT_ASSIGN", 
+      "POWER_ASSIGN", "IDIV_ASSIGN", "SKIP_", "UNKNOWN_CHAR"
+    }
+  );
+  static const int32_t serializedATNSegment[] = {
+  	4,1,80,306,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,6,2,
+  	7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,2,11,7,11,2,12,7,12,2,13,7,13,2,14,7,
+  	14,2,15,7,15,2,16,7,16,2,17,7,17,2,18,7,18,2,19,7,19,2,20,7,20,2,21,7,
+  	21,2,22,7,22,2,23,7,23,2,24,7,24,2,25,7,25,2,26,7,26,2,27,7,27,2,28,7,
+  	28,2,29,7,29,2,30,7,30,2,31,7,31,2,32,7,32,2,33,7,33,2,34,7,34,1,0,1,
+  	0,5,0,73,8,0,10,0,12,0,76,9,0,1,0,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,2,
+  	3,2,88,8,2,1,2,1,2,1,3,1,3,1,3,3,3,95,8,3,1,3,1,3,1,3,1,3,3,3,101,8,3,
+  	5,3,103,8,3,10,3,12,3,106,9,3,1,4,1,4,1,5,1,5,3,5,112,8,5,1,6,1,6,1,6,
+  	1,7,1,7,3,7,119,8,7,1,8,1,8,1,8,1,8,1,8,1,8,5,8,127,8,8,10,8,12,8,130,
+  	9,8,3,8,132,8,8,1,9,1,9,1,10,1,10,1,10,3,10,139,8,10,1,11,1,11,1,12,1,
+  	12,1,13,1,13,3,13,147,8,13,1,14,1,14,1,14,3,14,152,8,14,1,15,1,15,1,15,
+  	1,15,1,15,1,15,1,15,1,15,1,15,5,15,163,8,15,10,15,12,15,166,9,15,1,15,
+  	1,15,1,15,3,15,171,8,15,1,16,1,16,1,16,1,16,1,16,1,17,1,17,1,17,1,17,
+  	4,17,182,8,17,11,17,12,17,183,1,17,1,17,3,17,188,8,17,1,18,1,18,1,19,
+  	1,19,1,19,5,19,195,8,19,10,19,12,19,198,9,19,1,20,1,20,1,20,5,20,203,
+  	8,20,10,20,12,20,206,9,20,1,21,1,21,1,21,3,21,211,8,21,1,22,1,22,1,22,
+  	1,22,5,22,217,8,22,10,22,12,22,220,9,22,1,23,1,23,1,24,1,24,1,24,1,24,
+  	5,24,228,8,24,10,24,12,24,231,9,24,1,25,1,25,1,26,1,26,1,26,1,26,5,26,
+  	239,8,26,10,26,12,26,242,9,26,1,27,1,27,1,28,1,28,1,28,3,28,249,8,28,
+  	1,29,1,29,3,29,253,8,29,1,30,1,30,3,30,257,8,30,1,30,1,30,1,31,1,31,1,
+  	31,4,31,264,8,31,11,31,12,31,265,1,31,1,31,1,31,1,31,1,31,1,31,1,31,3,
+  	31,275,8,31,1,32,1,32,1,32,5,32,280,8,32,10,32,12,32,283,9,32,1,32,3,
+  	32,286,8,32,1,33,1,33,1,33,5,33,291,8,33,10,33,12,33,294,9,33,1,33,3,
+  	33,297,8,33,1,34,1,34,1,34,1,34,1,34,3,34,304,8,34,1,34,0,0,35,0,2,4,
+  	6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,
+  	54,56,58,60,62,64,66,68,0,4,3,0,66,68,70,71,78,78,2,0,57,61,63,63,1,0,
+  	49,50,2,0,34,34,51,53,310,0,74,1,0,0,0,2,79,1,0,0,0,4,85,1,0,0,0,6,91,
+  	1,0,0,0,8,107,1,0,0,0,10,111,1,0,0,0,12,113,1,0,0,0,14,118,1,0,0,0,16,
+  	120,1,0,0,0,18,133,1,0,0,0,20,138,1,0,0,0,22,140,1,0,0,0,24,142,1,0,0,
+  	0,26,144,1,0,0,0,28,151,1,0,0,0,30,153,1,0,0,0,32,172,1,0,0,0,34,187,
+  	1,0,0,0,36,189,1,0,0,0,38,191,1,0,0,0,40,199,1,0,0,0,42,210,1,0,0,0,44,
+  	212,1,0,0,0,46,221,1,0,0,0,48,223,1,0,0,0,50,232,1,0,0,0,52,234,1,0,0,
+  	0,54,243,1,0,0,0,56,248,1,0,0,0,58,250,1,0,0,0,60,254,1,0,0,0,62,274,
+  	1,0,0,0,64,276,1,0,0,0,66,287,1,0,0,0,68,303,1,0,0,0,70,73,5,22,0,0,71,
+  	73,3,10,5,0,72,70,1,0,0,0,72,71,1,0,0,0,73,76,1,0,0,0,74,72,1,0,0,0,74,
+  	75,1,0,0,0,75,77,1,0,0,0,76,74,1,0,0,0,77,78,5,0,0,1,78,1,1,0,0,0,79,
+  	80,5,6,0,0,80,81,5,23,0,0,81,82,3,4,2,0,82,83,5,38,0,0,83,84,3,34,17,
+  	0,84,3,1,0,0,0,85,87,5,35,0,0,86,88,3,6,3,0,87,86,1,0,0,0,87,88,1,0,0,
+  	0,88,89,1,0,0,0,89,90,5,36,0,0,90,5,1,0,0,0,91,94,3,8,4,0,92,93,5,41,
+  	0,0,93,95,3,36,18,0,94,92,1,0,0,0,94,95,1,0,0,0,95,104,1,0,0,0,96,97,
+  	5,37,0,0,97,100,3,8,4,0,98,99,5,41,0,0,99,101,3,36,18,0,100,98,1,0,0,
+  	0,100,101,1,0,0,0,101,103,1,0,0,0,102,96,1,0,0,0,103,106,1,0,0,0,104,
+  	102,1,0,0,0,104,105,1,0,0,0,105,7,1,0,0,0,106,104,1,0,0,0,107,108,5,23,
+  	0,0,108,9,1,0,0,0,109,112,3,12,6,0,110,112,3,28,14,0,111,109,1,0,0,0,
+  	111,110,1,0,0,0,112,11,1,0,0,0,113,114,3,14,7,0,114,115,5,22,0,0,115,
+  	13,1,0,0,0,116,119,3,16,8,0,117,119,3,20,10,0,118,116,1,0,0,0,118,117,
+  	1,0,0,0,119,15,1,0,0,0,120,131,3,64,32,0,121,122,3,18,9,0,122,123,3,64,
+  	32,0,123,132,1,0,0,0,124,125,5,41,0,0,125,127,3,64,32,0,126,124,1,0,0,
+  	0,127,130,1,0,0,0,128,126,1,0,0,0,128,129,1,0,0,0,129,132,1,0,0,0,130,
+  	128,1,0,0,0,131,121,1,0,0,0,131,128,1,0,0,0,132,17,1,0,0,0,133,134,7,
+  	0,0,0,134,19,1,0,0,0,135,139,3,22,11,0,136,139,3,24,12,0,137,139,3,26,
+  	13,0,138,135,1,0,0,0,138,136,1,0,0,0,138,137,1,0,0,0,139,21,1,0,0,0,140,
+  	141,5,21,0,0,141,23,1,0,0,0,142,143,5,20,0,0,143,25,1,0,0,0,144,146,5,
+  	7,0,0,145,147,3,64,32,0,146,145,1,0,0,0,146,147,1,0,0,0,147,27,1,0,0,
+  	0,148,152,3,30,15,0,149,152,3,32,16,0,150,152,3,2,1,0,151,148,1,0,0,0,
+  	151,149,1,0,0,0,151,150,1,0,0,0,152,29,1,0,0,0,153,154,5,8,0,0,154,155,
+  	3,36,18,0,155,156,5,38,0,0,156,164,3,34,17,0,157,158,5,9,0,0,158,159,
+  	3,36,18,0,159,160,5,38,0,0,160,161,3,34,17,0,161,163,1,0,0,0,162,157,
+  	1,0,0,0,163,166,1,0,0,0,164,162,1,0,0,0,164,165,1,0,0,0,165,170,1,0,0,
+  	0,166,164,1,0,0,0,167,168,5,10,0,0,168,169,5,38,0,0,169,171,3,34,17,0,
+  	170,167,1,0,0,0,170,171,1,0,0,0,171,31,1,0,0,0,172,173,5,11,0,0,173,174,
+  	3,36,18,0,174,175,5,38,0,0,175,176,3,34,17,0,176,33,1,0,0,0,177,188,3,
+  	12,6,0,178,179,5,22,0,0,179,181,5,1,0,0,180,182,3,10,5,0,181,180,1,0,
+  	0,0,182,183,1,0,0,0,183,181,1,0,0,0,183,184,1,0,0,0,184,185,1,0,0,0,185,
+  	186,5,2,0,0,186,188,1,0,0,0,187,177,1,0,0,0,187,178,1,0,0,0,188,35,1,
+  	0,0,0,189,190,3,38,19,0,190,37,1,0,0,0,191,196,3,40,20,0,192,193,5,14,
+  	0,0,193,195,3,40,20,0,194,192,1,0,0,0,195,198,1,0,0,0,196,194,1,0,0,0,
+  	196,197,1,0,0,0,197,39,1,0,0,0,198,196,1,0,0,0,199,204,3,42,21,0,200,
+  	201,5,15,0,0,201,203,3,42,21,0,202,200,1,0,0,0,203,206,1,0,0,0,204,202,
+  	1,0,0,0,204,205,1,0,0,0,205,41,1,0,0,0,206,204,1,0,0,0,207,208,5,16,0,
+  	0,208,211,3,42,21,0,209,211,3,44,22,0,210,207,1,0,0,0,210,209,1,0,0,0,
+  	211,43,1,0,0,0,212,218,3,48,24,0,213,214,3,46,23,0,214,215,3,48,24,0,
+  	215,217,1,0,0,0,216,213,1,0,0,0,217,220,1,0,0,0,218,216,1,0,0,0,218,219,
+  	1,0,0,0,219,45,1,0,0,0,220,218,1,0,0,0,221,222,7,1,0,0,222,47,1,0,0,0,
+  	223,229,3,52,26,0,224,225,3,50,25,0,225,226,3,52,26,0,226,228,1,0,0,0,
+  	227,224,1,0,0,0,228,231,1,0,0,0,229,227,1,0,0,0,229,230,1,0,0,0,230,49,
+  	1,0,0,0,231,229,1,0,0,0,232,233,7,2,0,0,233,51,1,0,0,0,234,240,3,56,28,
+  	0,235,236,3,54,27,0,236,237,3,56,28,0,237,239,1,0,0,0,238,235,1,0,0,0,
+  	239,242,1,0,0,0,240,238,1,0,0,0,240,241,1,0,0,0,241,53,1,0,0,0,242,240,
+  	1,0,0,0,243,244,7,3,0,0,244,55,1,0,0,0,245,246,7,2,0,0,246,249,3,56,28,
+  	0,247,249,3,58,29,0,248,245,1,0,0,0,248,247,1,0,0,0,249,57,1,0,0,0,250,
+  	252,3,62,31,0,251,253,3,60,30,0,252,251,1,0,0,0,252,253,1,0,0,0,253,59,
+  	1,0,0,0,254,256,5,35,0,0,255,257,3,66,33,0,256,255,1,0,0,0,256,257,1,
+  	0,0,0,257,258,1,0,0,0,258,259,5,36,0,0,259,61,1,0,0,0,260,275,5,23,0,
+  	0,261,275,5,4,0,0,262,264,5,3,0,0,263,262,1,0,0,0,264,265,1,0,0,0,265,
+  	263,1,0,0,0,265,266,1,0,0,0,266,275,1,0,0,0,267,275,5,17,0,0,268,275,
+  	5,18,0,0,269,275,5,19,0,0,270,271,5,35,0,0,271,272,3,36,18,0,272,273,
+  	5,36,0,0,273,275,1,0,0,0,274,260,1,0,0,0,274,261,1,0,0,0,274,263,1,0,
+  	0,0,274,267,1,0,0,0,274,268,1,0,0,0,274,269,1,0,0,0,274,270,1,0,0,0,275,
+  	63,1,0,0,0,276,281,3,36,18,0,277,278,5,37,0,0,278,280,3,36,18,0,279,277,
+  	1,0,0,0,280,283,1,0,0,0,281,279,1,0,0,0,281,282,1,0,0,0,282,285,1,0,0,
+  	0,283,281,1,0,0,0,284,286,5,37,0,0,285,284,1,0,0,0,285,286,1,0,0,0,286,
+  	65,1,0,0,0,287,292,3,68,34,0,288,289,5,37,0,0,289,291,3,68,34,0,290,288,
+  	1,0,0,0,291,294,1,0,0,0,292,290,1,0,0,0,292,293,1,0,0,0,293,296,1,0,0,
+  	0,294,292,1,0,0,0,295,297,5,37,0,0,296,295,1,0,0,0,296,297,1,0,0,0,297,
+  	67,1,0,0,0,298,304,3,36,18,0,299,300,3,36,18,0,300,301,5,41,0,0,301,302,
+  	3,36,18,0,302,304,1,0,0,0,303,298,1,0,0,0,303,299,1,0,0,0,304,69,1,0,
+  	0,0,33,72,74,87,94,100,104,111,118,128,131,138,146,151,164,170,183,187,
+  	196,204,210,218,229,240,248,252,256,265,274,281,285,292,296,303
+  };
+  staticData->serializedATN = antlr4::atn::SerializedATNView(serializedATNSegment, sizeof(serializedATNSegment) / sizeof(serializedATNSegment[0]));
+
+  antlr4::atn::ATNDeserializer deserializer;
+  staticData->atn = deserializer.deserialize(staticData->serializedATN);
+
+  const size_t count = staticData->atn->getNumberOfDecisions();
+  staticData->decisionToDFA.reserve(count);
+  for (size_t i = 0; i < count; i++) { 
+    staticData->decisionToDFA.emplace_back(staticData->atn->getDecisionState(i), i);
+  }
+  python3parserParserStaticData = staticData.release();
+}
+
+}
+
+Python3Parser::Python3Parser(TokenStream *input) : Python3Parser(input, antlr4::atn::ParserATNSimulatorOptions()) {}
+
+Python3Parser::Python3Parser(TokenStream *input, const antlr4::atn::ParserATNSimulatorOptions &options) : Parser(input) {
+  Python3Parser::initialize();
+  _interpreter = new atn::ParserATNSimulator(this, *python3parserParserStaticData->atn, python3parserParserStaticData->decisionToDFA, python3parserParserStaticData->sharedContextCache, options);
 }
 
 Python3Parser::~Python3Parser() {
   delete _interpreter;
 }
 
+const atn::ATN& Python3Parser::getATN() const {
+  return *python3parserParserStaticData->atn;
+}
+
 std::string Python3Parser::getGrammarFileName() const {
-  return "Python3.g4";
+  return "Python3Parser.g4";
 }
 
 const std::vector<std::string>& Python3Parser::getRuleNames() const {
-  return _ruleNames;
+  return python3parserParserStaticData->ruleNames;
 }
 
-dfa::Vocabulary& Python3Parser::getVocabulary() const {
-  return _vocabulary;
+const dfa::Vocabulary& Python3Parser::getVocabulary() const {
+  return python3parserParserStaticData->vocabulary;
+}
+
+antlr4::atn::SerializedATNView Python3Parser::getSerializedATN() const {
+  return python3parserParserStaticData->serializedATN;
 }
 
 
@@ -63,21 +265,9 @@ size_t Python3Parser::File_inputContext::getRuleIndex() const {
   return Python3Parser::RuleFile_input;
 }
 
-void Python3Parser::File_inputContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFile_input(this);
-}
 
-void Python3Parser::File_inputContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFile_input(this);
-}
-
-
-antlrcpp::Any Python3Parser::File_inputContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::File_inputContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitFile_input(this);
   else
     return visitor->visitChildren(this);
@@ -88,7 +278,11 @@ Python3Parser::File_inputContext* Python3Parser::file_input() {
   enterRule(_localctx, 0, Python3Parser::RuleFile_input);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -97,23 +291,7 @@ Python3Parser::File_inputContext* Python3Parser::file_input() {
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Python3Parser::STRING)
-      | (1ULL << Python3Parser::NUMBER)
-      | (1ULL << Python3Parser::DEF)
-      | (1ULL << Python3Parser::RETURN)
-      | (1ULL << Python3Parser::IF)
-      | (1ULL << Python3Parser::WHILE)
-      | (1ULL << Python3Parser::NOT)
-      | (1ULL << Python3Parser::NONE)
-      | (1ULL << Python3Parser::TRUE)
-      | (1ULL << Python3Parser::FALSE)
-      | (1ULL << Python3Parser::CONTINUE)
-      | (1ULL << Python3Parser::BREAK)
-      | (1ULL << Python3Parser::NEWLINE)
-      | (1ULL << Python3Parser::NAME)
-      | (1ULL << Python3Parser::OPEN_PAREN)
-      | (1ULL << Python3Parser::ADD)
-      | (1ULL << Python3Parser::MINUS))) != 0)) {
+      ((1ULL << _la) & 1688884236716504) != 0)) {
       setState(72);
       _errHandler->sync(this);
       switch (_input->LA(1)) {
@@ -195,21 +373,9 @@ size_t Python3Parser::FuncdefContext::getRuleIndex() const {
   return Python3Parser::RuleFuncdef;
 }
 
-void Python3Parser::FuncdefContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFuncdef(this);
-}
 
-void Python3Parser::FuncdefContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFuncdef(this);
-}
-
-
-antlrcpp::Any Python3Parser::FuncdefContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::FuncdefContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitFuncdef(this);
   else
     return visitor->visitChildren(this);
@@ -219,7 +385,11 @@ Python3Parser::FuncdefContext* Python3Parser::funcdef() {
   FuncdefContext *_localctx = _tracker.createInstance<FuncdefContext>(_ctx, getState());
   enterRule(_localctx, 2, Python3Parser::RuleFuncdef);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -268,21 +438,9 @@ size_t Python3Parser::ParametersContext::getRuleIndex() const {
   return Python3Parser::RuleParameters;
 }
 
-void Python3Parser::ParametersContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterParameters(this);
-}
 
-void Python3Parser::ParametersContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitParameters(this);
-}
-
-
-antlrcpp::Any Python3Parser::ParametersContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::ParametersContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitParameters(this);
   else
     return visitor->visitChildren(this);
@@ -293,7 +451,11 @@ Python3Parser::ParametersContext* Python3Parser::parameters() {
   enterRule(_localctx, 4, Python3Parser::RuleParameters);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -364,21 +526,9 @@ size_t Python3Parser::TypedargslistContext::getRuleIndex() const {
   return Python3Parser::RuleTypedargslist;
 }
 
-void Python3Parser::TypedargslistContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTypedargslist(this);
-}
 
-void Python3Parser::TypedargslistContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTypedargslist(this);
-}
-
-
-antlrcpp::Any Python3Parser::TypedargslistContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::TypedargslistContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitTypedargslist(this);
   else
     return visitor->visitChildren(this);
@@ -389,7 +539,11 @@ Python3Parser::TypedargslistContext* Python3Parser::typedargslist() {
   enterRule(_localctx, 6, Python3Parser::RuleTypedargslist);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -454,21 +608,9 @@ size_t Python3Parser::TfpdefContext::getRuleIndex() const {
   return Python3Parser::RuleTfpdef;
 }
 
-void Python3Parser::TfpdefContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTfpdef(this);
-}
 
-void Python3Parser::TfpdefContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTfpdef(this);
-}
-
-
-antlrcpp::Any Python3Parser::TfpdefContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::TfpdefContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitTfpdef(this);
   else
     return visitor->visitChildren(this);
@@ -478,7 +620,11 @@ Python3Parser::TfpdefContext* Python3Parser::tfpdef() {
   TfpdefContext *_localctx = _tracker.createInstance<TfpdefContext>(_ctx, getState());
   enterRule(_localctx, 8, Python3Parser::RuleTfpdef);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -515,21 +661,9 @@ size_t Python3Parser::StmtContext::getRuleIndex() const {
   return Python3Parser::RuleStmt;
 }
 
-void Python3Parser::StmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterStmt(this);
-}
 
-void Python3Parser::StmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitStmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::StmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::StmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitStmt(this);
   else
     return visitor->visitChildren(this);
@@ -539,7 +673,11 @@ Python3Parser::StmtContext* Python3Parser::stmt() {
   StmtContext *_localctx = _tracker.createInstance<StmtContext>(_ctx, getState());
   enterRule(_localctx, 10, Python3Parser::RuleStmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -607,21 +745,9 @@ size_t Python3Parser::Simple_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleSimple_stmt;
 }
 
-void Python3Parser::Simple_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSimple_stmt(this);
-}
 
-void Python3Parser::Simple_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSimple_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Simple_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Simple_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitSimple_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -631,7 +757,11 @@ Python3Parser::Simple_stmtContext* Python3Parser::simple_stmt() {
   Simple_stmtContext *_localctx = _tracker.createInstance<Simple_stmtContext>(_ctx, getState());
   enterRule(_localctx, 12, Python3Parser::RuleSimple_stmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -670,21 +800,9 @@ size_t Python3Parser::Small_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleSmall_stmt;
 }
 
-void Python3Parser::Small_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSmall_stmt(this);
-}
 
-void Python3Parser::Small_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSmall_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Small_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Small_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitSmall_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -694,7 +812,11 @@ Python3Parser::Small_stmtContext* Python3Parser::small_stmt() {
   Small_stmtContext *_localctx = _tracker.createInstance<Small_stmtContext>(_ctx, getState());
   enterRule(_localctx, 14, Python3Parser::RuleSmall_stmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -771,21 +893,9 @@ size_t Python3Parser::Expr_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleExpr_stmt;
 }
 
-void Python3Parser::Expr_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterExpr_stmt(this);
-}
 
-void Python3Parser::Expr_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitExpr_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Expr_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Expr_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitExpr_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -796,7 +906,11 @@ Python3Parser::Expr_stmtContext* Python3Parser::expr_stmt() {
   enterRule(_localctx, 16, Python3Parser::RuleExpr_stmt);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -885,21 +999,9 @@ size_t Python3Parser::AugassignContext::getRuleIndex() const {
   return Python3Parser::RuleAugassign;
 }
 
-void Python3Parser::AugassignContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAugassign(this);
-}
 
-void Python3Parser::AugassignContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAugassign(this);
-}
-
-
-antlrcpp::Any Python3Parser::AugassignContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::AugassignContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitAugassign(this);
   else
     return visitor->visitChildren(this);
@@ -910,20 +1012,19 @@ Python3Parser::AugassignContext* Python3Parser::augassign() {
   enterRule(_localctx, 18, Python3Parser::RuleAugassign);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
     enterOuterAlt(_localctx, 1);
     setState(133);
     _la = _input->LA(1);
-    if (!(((((_la - 64) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 64)) & ((1ULL << (Python3Parser::ADD_ASSIGN - 64))
-      | (1ULL << (Python3Parser::SUB_ASSIGN - 64))
-      | (1ULL << (Python3Parser::MULT_ASSIGN - 64))
-      | (1ULL << (Python3Parser::DIV_ASSIGN - 64))
-      | (1ULL << (Python3Parser::MOD_ASSIGN - 64))
-      | (1ULL << (Python3Parser::IDIV_ASSIGN - 64)))) != 0))) {
+    if (!(((((_la - 66) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 66)) & 4151) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -964,21 +1065,9 @@ size_t Python3Parser::Flow_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleFlow_stmt;
 }
 
-void Python3Parser::Flow_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFlow_stmt(this);
-}
 
-void Python3Parser::Flow_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFlow_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Flow_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Flow_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitFlow_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -988,7 +1077,11 @@ Python3Parser::Flow_stmtContext* Python3Parser::flow_stmt() {
   Flow_stmtContext *_localctx = _tracker.createInstance<Flow_stmtContext>(_ctx, getState());
   enterRule(_localctx, 20, Python3Parser::RuleFlow_stmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1045,21 +1138,9 @@ size_t Python3Parser::Break_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleBreak_stmt;
 }
 
-void Python3Parser::Break_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterBreak_stmt(this);
-}
 
-void Python3Parser::Break_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitBreak_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Break_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Break_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitBreak_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -1069,7 +1150,11 @@ Python3Parser::Break_stmtContext* Python3Parser::break_stmt() {
   Break_stmtContext *_localctx = _tracker.createInstance<Break_stmtContext>(_ctx, getState());
   enterRule(_localctx, 22, Python3Parser::RuleBreak_stmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1102,21 +1187,9 @@ size_t Python3Parser::Continue_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleContinue_stmt;
 }
 
-void Python3Parser::Continue_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterContinue_stmt(this);
-}
 
-void Python3Parser::Continue_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitContinue_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Continue_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Continue_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitContinue_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -1126,7 +1199,11 @@ Python3Parser::Continue_stmtContext* Python3Parser::continue_stmt() {
   Continue_stmtContext *_localctx = _tracker.createInstance<Continue_stmtContext>(_ctx, getState());
   enterRule(_localctx, 24, Python3Parser::RuleContinue_stmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1163,21 +1240,9 @@ size_t Python3Parser::Return_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleReturn_stmt;
 }
 
-void Python3Parser::Return_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterReturn_stmt(this);
-}
 
-void Python3Parser::Return_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitReturn_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Return_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Return_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitReturn_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -1188,7 +1253,11 @@ Python3Parser::Return_stmtContext* Python3Parser::return_stmt() {
   enterRule(_localctx, 26, Python3Parser::RuleReturn_stmt);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1200,16 +1269,7 @@ Python3Parser::Return_stmtContext* Python3Parser::return_stmt() {
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Python3Parser::STRING)
-      | (1ULL << Python3Parser::NUMBER)
-      | (1ULL << Python3Parser::NOT)
-      | (1ULL << Python3Parser::NONE)
-      | (1ULL << Python3Parser::TRUE)
-      | (1ULL << Python3Parser::FALSE)
-      | (1ULL << Python3Parser::NAME)
-      | (1ULL << Python3Parser::OPEN_PAREN)
-      | (1ULL << Python3Parser::ADD)
-      | (1ULL << Python3Parser::MINUS))) != 0)) {
+      ((1ULL << _la) & 1688884229373976) != 0)) {
       setState(145);
       testlist();
     }
@@ -1247,21 +1307,9 @@ size_t Python3Parser::Compound_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleCompound_stmt;
 }
 
-void Python3Parser::Compound_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterCompound_stmt(this);
-}
 
-void Python3Parser::Compound_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitCompound_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::Compound_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Compound_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitCompound_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -1271,7 +1319,11 @@ Python3Parser::Compound_stmtContext* Python3Parser::compound_stmt() {
   Compound_stmtContext *_localctx = _tracker.createInstance<Compound_stmtContext>(_ctx, getState());
   enterRule(_localctx, 28, Python3Parser::RuleCompound_stmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1364,21 +1416,9 @@ size_t Python3Parser::If_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleIf_stmt;
 }
 
-void Python3Parser::If_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterIf_stmt(this);
-}
 
-void Python3Parser::If_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitIf_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::If_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::If_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitIf_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -1389,7 +1429,11 @@ Python3Parser::If_stmtContext* Python3Parser::if_stmt() {
   enterRule(_localctx, 30, Python3Parser::RuleIf_stmt);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1468,21 +1512,9 @@ size_t Python3Parser::While_stmtContext::getRuleIndex() const {
   return Python3Parser::RuleWhile_stmt;
 }
 
-void Python3Parser::While_stmtContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterWhile_stmt(this);
-}
 
-void Python3Parser::While_stmtContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitWhile_stmt(this);
-}
-
-
-antlrcpp::Any Python3Parser::While_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::While_stmtContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitWhile_stmt(this);
   else
     return visitor->visitChildren(this);
@@ -1492,7 +1524,11 @@ Python3Parser::While_stmtContext* Python3Parser::while_stmt() {
   While_stmtContext *_localctx = _tracker.createInstance<While_stmtContext>(_ctx, getState());
   enterRule(_localctx, 32, Python3Parser::RuleWhile_stmt);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1551,21 +1587,9 @@ size_t Python3Parser::SuiteContext::getRuleIndex() const {
   return Python3Parser::RuleSuite;
 }
 
-void Python3Parser::SuiteContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterSuite(this);
-}
 
-void Python3Parser::SuiteContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitSuite(this);
-}
-
-
-antlrcpp::Any Python3Parser::SuiteContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::SuiteContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitSuite(this);
   else
     return visitor->visitChildren(this);
@@ -1576,7 +1600,11 @@ Python3Parser::SuiteContext* Python3Parser::suite() {
   enterRule(_localctx, 34, Python3Parser::RuleSuite);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1618,22 +1646,7 @@ Python3Parser::SuiteContext* Python3Parser::suite() {
           _errHandler->sync(this);
           _la = _input->LA(1);
         } while ((((_la & ~ 0x3fULL) == 0) &&
-          ((1ULL << _la) & ((1ULL << Python3Parser::STRING)
-          | (1ULL << Python3Parser::NUMBER)
-          | (1ULL << Python3Parser::DEF)
-          | (1ULL << Python3Parser::RETURN)
-          | (1ULL << Python3Parser::IF)
-          | (1ULL << Python3Parser::WHILE)
-          | (1ULL << Python3Parser::NOT)
-          | (1ULL << Python3Parser::NONE)
-          | (1ULL << Python3Parser::TRUE)
-          | (1ULL << Python3Parser::FALSE)
-          | (1ULL << Python3Parser::CONTINUE)
-          | (1ULL << Python3Parser::BREAK)
-          | (1ULL << Python3Parser::NAME)
-          | (1ULL << Python3Parser::OPEN_PAREN)
-          | (1ULL << Python3Parser::ADD)
-          | (1ULL << Python3Parser::MINUS))) != 0));
+          ((1ULL << _la) & 1688884232522200) != 0));
         setState(185);
         match(Python3Parser::DEDENT);
         break;
@@ -1668,21 +1681,9 @@ size_t Python3Parser::TestContext::getRuleIndex() const {
   return Python3Parser::RuleTest;
 }
 
-void Python3Parser::TestContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTest(this);
-}
 
-void Python3Parser::TestContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTest(this);
-}
-
-
-antlrcpp::Any Python3Parser::TestContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::TestContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitTest(this);
   else
     return visitor->visitChildren(this);
@@ -1692,7 +1693,11 @@ Python3Parser::TestContext* Python3Parser::test() {
   TestContext *_localctx = _tracker.createInstance<TestContext>(_ctx, getState());
   enterRule(_localctx, 36, Python3Parser::RuleTest);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1737,21 +1742,9 @@ size_t Python3Parser::Or_testContext::getRuleIndex() const {
   return Python3Parser::RuleOr_test;
 }
 
-void Python3Parser::Or_testContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterOr_test(this);
-}
 
-void Python3Parser::Or_testContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitOr_test(this);
-}
-
-
-antlrcpp::Any Python3Parser::Or_testContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Or_testContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitOr_test(this);
   else
     return visitor->visitChildren(this);
@@ -1762,7 +1755,11 @@ Python3Parser::Or_testContext* Python3Parser::or_test() {
   enterRule(_localctx, 38, Python3Parser::RuleOr_test);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1819,21 +1816,9 @@ size_t Python3Parser::And_testContext::getRuleIndex() const {
   return Python3Parser::RuleAnd_test;
 }
 
-void Python3Parser::And_testContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAnd_test(this);
-}
 
-void Python3Parser::And_testContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAnd_test(this);
-}
-
-
-antlrcpp::Any Python3Parser::And_testContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::And_testContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitAnd_test(this);
   else
     return visitor->visitChildren(this);
@@ -1844,7 +1829,11 @@ Python3Parser::And_testContext* Python3Parser::and_test() {
   enterRule(_localctx, 40, Python3Parser::RuleAnd_test);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1897,21 +1886,9 @@ size_t Python3Parser::Not_testContext::getRuleIndex() const {
   return Python3Parser::RuleNot_test;
 }
 
-void Python3Parser::Not_testContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterNot_test(this);
-}
 
-void Python3Parser::Not_testContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitNot_test(this);
-}
-
-
-antlrcpp::Any Python3Parser::Not_testContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Not_testContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitNot_test(this);
   else
     return visitor->visitChildren(this);
@@ -1921,7 +1898,11 @@ Python3Parser::Not_testContext* Python3Parser::not_test() {
   Not_testContext *_localctx = _tracker.createInstance<Not_testContext>(_ctx, getState());
   enterRule(_localctx, 42, Python3Parser::RuleNot_test);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -1993,21 +1974,9 @@ size_t Python3Parser::ComparisonContext::getRuleIndex() const {
   return Python3Parser::RuleComparison;
 }
 
-void Python3Parser::ComparisonContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterComparison(this);
-}
 
-void Python3Parser::ComparisonContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitComparison(this);
-}
-
-
-antlrcpp::Any Python3Parser::ComparisonContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::ComparisonContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitComparison(this);
   else
     return visitor->visitChildren(this);
@@ -2018,7 +1987,11 @@ Python3Parser::ComparisonContext* Python3Parser::comparison() {
   enterRule(_localctx, 44, Python3Parser::RuleComparison);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2029,12 +2002,7 @@ Python3Parser::ComparisonContext* Python3Parser::comparison() {
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Python3Parser::LESS_THAN)
-      | (1ULL << Python3Parser::GREATER_THAN)
-      | (1ULL << Python3Parser::EQUALS)
-      | (1ULL << Python3Parser::GT_EQ)
-      | (1ULL << Python3Parser::LT_EQ)
-      | (1ULL << Python3Parser::NOT_EQ_2))) != 0)) {
+      ((1ULL << _la) & -4755801206503243776) != 0)) {
       setState(213);
       comp_op();
       setState(214);
@@ -2089,21 +2057,9 @@ size_t Python3Parser::Comp_opContext::getRuleIndex() const {
   return Python3Parser::RuleComp_op;
 }
 
-void Python3Parser::Comp_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterComp_op(this);
-}
 
-void Python3Parser::Comp_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitComp_op(this);
-}
-
-
-antlrcpp::Any Python3Parser::Comp_opContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Comp_opContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitComp_op(this);
   else
     return visitor->visitChildren(this);
@@ -2114,7 +2070,11 @@ Python3Parser::Comp_opContext* Python3Parser::comp_op() {
   enterRule(_localctx, 46, Python3Parser::RuleComp_op);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2122,12 +2082,7 @@ Python3Parser::Comp_opContext* Python3Parser::comp_op() {
     setState(221);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Python3Parser::LESS_THAN)
-      | (1ULL << Python3Parser::GREATER_THAN)
-      | (1ULL << Python3Parser::EQUALS)
-      | (1ULL << Python3Parser::GT_EQ)
-      | (1ULL << Python3Parser::LT_EQ)
-      | (1ULL << Python3Parser::NOT_EQ_2))) != 0))) {
+      ((1ULL << _la) & -4755801206503243776) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -2172,21 +2127,9 @@ size_t Python3Parser::Arith_exprContext::getRuleIndex() const {
   return Python3Parser::RuleArith_expr;
 }
 
-void Python3Parser::Arith_exprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterArith_expr(this);
-}
 
-void Python3Parser::Arith_exprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitArith_expr(this);
-}
-
-
-antlrcpp::Any Python3Parser::Arith_exprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Arith_exprContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitArith_expr(this);
   else
     return visitor->visitChildren(this);
@@ -2197,7 +2140,11 @@ Python3Parser::Arith_exprContext* Python3Parser::arith_expr() {
   enterRule(_localctx, 48, Python3Parser::RuleArith_expr);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2248,21 +2195,9 @@ size_t Python3Parser::Addorsub_opContext::getRuleIndex() const {
   return Python3Parser::RuleAddorsub_op;
 }
 
-void Python3Parser::Addorsub_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAddorsub_op(this);
-}
 
-void Python3Parser::Addorsub_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAddorsub_op(this);
-}
-
-
-antlrcpp::Any Python3Parser::Addorsub_opContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Addorsub_opContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitAddorsub_op(this);
   else
     return visitor->visitChildren(this);
@@ -2273,7 +2208,11 @@ Python3Parser::Addorsub_opContext* Python3Parser::addorsub_op() {
   enterRule(_localctx, 50, Python3Parser::RuleAddorsub_op);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2327,21 +2266,9 @@ size_t Python3Parser::TermContext::getRuleIndex() const {
   return Python3Parser::RuleTerm;
 }
 
-void Python3Parser::TermContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTerm(this);
-}
 
-void Python3Parser::TermContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTerm(this);
-}
-
-
-antlrcpp::Any Python3Parser::TermContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::TermContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitTerm(this);
   else
     return visitor->visitChildren(this);
@@ -2352,7 +2279,11 @@ Python3Parser::TermContext* Python3Parser::term() {
   enterRule(_localctx, 52, Python3Parser::RuleTerm);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2363,10 +2294,7 @@ Python3Parser::TermContext* Python3Parser::term() {
     _errHandler->sync(this);
     _la = _input->LA(1);
     while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Python3Parser::STAR)
-      | (1ULL << Python3Parser::DIV)
-      | (1ULL << Python3Parser::MOD)
-      | (1ULL << Python3Parser::IDIV))) != 0)) {
+      ((1ULL << _la) & 15762615875665920) != 0)) {
       setState(235);
       muldivmod_op();
       setState(236);
@@ -2413,21 +2341,9 @@ size_t Python3Parser::Muldivmod_opContext::getRuleIndex() const {
   return Python3Parser::RuleMuldivmod_op;
 }
 
-void Python3Parser::Muldivmod_opContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterMuldivmod_op(this);
-}
 
-void Python3Parser::Muldivmod_opContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitMuldivmod_op(this);
-}
-
-
-antlrcpp::Any Python3Parser::Muldivmod_opContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Muldivmod_opContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitMuldivmod_op(this);
   else
     return visitor->visitChildren(this);
@@ -2438,7 +2354,11 @@ Python3Parser::Muldivmod_opContext* Python3Parser::muldivmod_op() {
   enterRule(_localctx, 54, Python3Parser::RuleMuldivmod_op);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2446,10 +2366,7 @@ Python3Parser::Muldivmod_opContext* Python3Parser::muldivmod_op() {
     setState(243);
     _la = _input->LA(1);
     if (!((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Python3Parser::STAR)
-      | (1ULL << Python3Parser::DIV)
-      | (1ULL << Python3Parser::MOD)
-      | (1ULL << Python3Parser::IDIV))) != 0))) {
+      ((1ULL << _la) & 15762615875665920) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -2494,21 +2411,9 @@ size_t Python3Parser::FactorContext::getRuleIndex() const {
   return Python3Parser::RuleFactor;
 }
 
-void Python3Parser::FactorContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterFactor(this);
-}
 
-void Python3Parser::FactorContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitFactor(this);
-}
-
-
-antlrcpp::Any Python3Parser::FactorContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::FactorContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitFactor(this);
   else
     return visitor->visitChildren(this);
@@ -2519,7 +2424,11 @@ Python3Parser::FactorContext* Python3Parser::factor() {
   enterRule(_localctx, 56, Python3Parser::RuleFactor);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2591,21 +2500,9 @@ size_t Python3Parser::Atom_exprContext::getRuleIndex() const {
   return Python3Parser::RuleAtom_expr;
 }
 
-void Python3Parser::Atom_exprContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAtom_expr(this);
-}
 
-void Python3Parser::Atom_exprContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAtom_expr(this);
-}
-
-
-antlrcpp::Any Python3Parser::Atom_exprContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::Atom_exprContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitAtom_expr(this);
   else
     return visitor->visitChildren(this);
@@ -2616,7 +2513,11 @@ Python3Parser::Atom_exprContext* Python3Parser::atom_expr() {
   enterRule(_localctx, 58, Python3Parser::RuleAtom_expr);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2665,21 +2566,9 @@ size_t Python3Parser::TrailerContext::getRuleIndex() const {
   return Python3Parser::RuleTrailer;
 }
 
-void Python3Parser::TrailerContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTrailer(this);
-}
 
-void Python3Parser::TrailerContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTrailer(this);
-}
-
-
-antlrcpp::Any Python3Parser::TrailerContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::TrailerContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitTrailer(this);
   else
     return visitor->visitChildren(this);
@@ -2690,7 +2579,11 @@ Python3Parser::TrailerContext* Python3Parser::trailer() {
   enterRule(_localctx, 60, Python3Parser::RuleTrailer);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2702,16 +2595,7 @@ Python3Parser::TrailerContext* Python3Parser::trailer() {
 
     _la = _input->LA(1);
     if ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << Python3Parser::STRING)
-      | (1ULL << Python3Parser::NUMBER)
-      | (1ULL << Python3Parser::NOT)
-      | (1ULL << Python3Parser::NONE)
-      | (1ULL << Python3Parser::TRUE)
-      | (1ULL << Python3Parser::FALSE)
-      | (1ULL << Python3Parser::NAME)
-      | (1ULL << Python3Parser::OPEN_PAREN)
-      | (1ULL << Python3Parser::ADD)
-      | (1ULL << Python3Parser::MINUS))) != 0)) {
+      ((1ULL << _la) & 1688884229373976) != 0)) {
       setState(255);
       arglist();
     }
@@ -2779,21 +2663,9 @@ size_t Python3Parser::AtomContext::getRuleIndex() const {
   return Python3Parser::RuleAtom;
 }
 
-void Python3Parser::AtomContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterAtom(this);
-}
 
-void Python3Parser::AtomContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitAtom(this);
-}
-
-
-antlrcpp::Any Python3Parser::AtomContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::AtomContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitAtom(this);
   else
     return visitor->visitChildren(this);
@@ -2804,7 +2676,11 @@ Python3Parser::AtomContext* Python3Parser::atom() {
   enterRule(_localctx, 62, Python3Parser::RuleAtom);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -2907,21 +2783,9 @@ size_t Python3Parser::TestlistContext::getRuleIndex() const {
   return Python3Parser::RuleTestlist;
 }
 
-void Python3Parser::TestlistContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterTestlist(this);
-}
 
-void Python3Parser::TestlistContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitTestlist(this);
-}
-
-
-antlrcpp::Any Python3Parser::TestlistContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::TestlistContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitTestlist(this);
   else
     return visitor->visitChildren(this);
@@ -2932,7 +2796,11 @@ Python3Parser::TestlistContext* Python3Parser::testlist() {
   enterRule(_localctx, 64, Python3Parser::RuleTestlist);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3000,21 +2868,9 @@ size_t Python3Parser::ArglistContext::getRuleIndex() const {
   return Python3Parser::RuleArglist;
 }
 
-void Python3Parser::ArglistContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterArglist(this);
-}
 
-void Python3Parser::ArglistContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitArglist(this);
-}
-
-
-antlrcpp::Any Python3Parser::ArglistContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::ArglistContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitArglist(this);
   else
     return visitor->visitChildren(this);
@@ -3025,7 +2881,11 @@ Python3Parser::ArglistContext* Python3Parser::arglist() {
   enterRule(_localctx, 66, Python3Parser::RuleArglist);
   size_t _la = 0;
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3089,21 +2949,9 @@ size_t Python3Parser::ArgumentContext::getRuleIndex() const {
   return Python3Parser::RuleArgument;
 }
 
-void Python3Parser::ArgumentContext::enterRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->enterArgument(this);
-}
 
-void Python3Parser::ArgumentContext::exitRule(tree::ParseTreeListener *listener) {
-  auto parserListener = dynamic_cast<Python3Listener *>(listener);
-  if (parserListener != nullptr)
-    parserListener->exitArgument(this);
-}
-
-
-antlrcpp::Any Python3Parser::ArgumentContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<Python3Visitor*>(visitor))
+std::any Python3Parser::ArgumentContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<Python3ParserVisitor*>(visitor))
     return parserVisitor->visitArgument(this);
   else
     return visitor->visitChildren(this);
@@ -3113,7 +2961,11 @@ Python3Parser::ArgumentContext* Python3Parser::argument() {
   ArgumentContext *_localctx = _tracker.createInstance<ArgumentContext>(_ctx, getState());
   enterRule(_localctx, 68, Python3Parser::RuleArgument);
 
+#if __cplusplus > 201703L
+  auto onExit = finally([=, this] {
+#else
   auto onExit = finally([=] {
+#endif
     exitRule();
   });
   try {
@@ -3137,6 +2989,8 @@ Python3Parser::ArgumentContext* Python3Parser::argument() {
       break;
     }
 
+    default:
+      break;
     }
    
   }
@@ -3149,283 +3003,10 @@ Python3Parser::ArgumentContext* Python3Parser::argument() {
   return _localctx;
 }
 
-// Static vars and initialization.
-std::vector<dfa::DFA> Python3Parser::_decisionToDFA;
-atn::PredictionContextCache Python3Parser::_sharedContextCache;
-
-// We own the ATN which in turn owns the ATN states.
-atn::ATN Python3Parser::_atn;
-std::vector<uint16_t> Python3Parser::_serializedATN;
-
-std::vector<std::string> Python3Parser::_ruleNames = {
-  "file_input", "funcdef", "parameters", "typedargslist", "tfpdef", "stmt", 
-  "simple_stmt", "small_stmt", "expr_stmt", "augassign", "flow_stmt", "break_stmt", 
-  "continue_stmt", "return_stmt", "compound_stmt", "if_stmt", "while_stmt", 
-  "suite", "test", "or_test", "and_test", "not_test", "comparison", "comp_op", 
-  "arith_expr", "addorsub_op", "term", "muldivmod_op", "factor", "atom_expr", 
-  "trailer", "atom", "testlist", "arglist", "argument"
-};
-
-std::vector<std::string> Python3Parser::_literalNames = {
-  "", "", "", "", "'def'", "'return'", "'if'", "'elif'", "'else'", "'while'", 
-  "'for'", "'in'", "'or'", "'and'", "'not'", "'None'", "'True'", "'False'", 
-  "'continue'", "'break'", "", "", "", "", "", "", "", "", "", "", "'.'", 
-  "'...'", "'*'", "'('", "')'", "','", "':'", "';'", "'**'", "'='", "'['", 
-  "']'", "'|'", "'^'", "'&'", "'<<'", "'>>'", "'+'", "'-'", "'/'", "'%'", 
-  "'//'", "'~'", "'{'", "'}'", "'<'", "'>'", "'=='", "'>='", "'<='", "'<>'", 
-  "'!='", "'@'", "'->'", "'+='", "'-='", "'*='", "'@='", "'/='", "'%='", 
-  "'&='", "'|='", "'^='", "'<<='", "'>>='", "'**='", "'//='"
-};
-
-std::vector<std::string> Python3Parser::_symbolicNames = {
-  "", "STRING", "NUMBER", "INTEGER", "DEF", "RETURN", "IF", "ELIF", "ELSE", 
-  "WHILE", "FOR", "IN", "OR", "AND", "NOT", "NONE", "TRUE", "FALSE", "CONTINUE", 
-  "BREAK", "NEWLINE", "NAME", "STRING_LITERAL", "BYTES_LITERAL", "DECIMAL_INTEGER", 
-  "OCT_INTEGER", "HEX_INTEGER", "BIN_INTEGER", "FLOAT_NUMBER", "IMAG_NUMBER", 
-  "DOT", "ELLIPSIS", "STAR", "OPEN_PAREN", "CLOSE_PAREN", "COMMA", "COLON", 
-  "SEMI_COLON", "POWER", "ASSIGN", "OPEN_BRACK", "CLOSE_BRACK", "OR_OP", 
-  "XOR", "AND_OP", "LEFT_SHIFT", "RIGHT_SHIFT", "ADD", "MINUS", "DIV", "MOD", 
-  "IDIV", "NOT_OP", "OPEN_BRACE", "CLOSE_BRACE", "LESS_THAN", "GREATER_THAN", 
-  "EQUALS", "GT_EQ", "LT_EQ", "NOT_EQ_1", "NOT_EQ_2", "AT", "ARROW", "ADD_ASSIGN", 
-  "SUB_ASSIGN", "MULT_ASSIGN", "AT_ASSIGN", "DIV_ASSIGN", "MOD_ASSIGN", 
-  "AND_ASSIGN", "OR_ASSIGN", "XOR_ASSIGN", "LEFT_SHIFT_ASSIGN", "RIGHT_SHIFT_ASSIGN", 
-  "POWER_ASSIGN", "IDIV_ASSIGN", "SKIP_", "UNKNOWN_CHAR", "INDENT", "DEDENT"
-};
-
-dfa::Vocabulary Python3Parser::_vocabulary(_literalNames, _symbolicNames);
-
-std::vector<std::string> Python3Parser::_tokenNames;
-
-Python3Parser::Initializer::Initializer() {
-	for (size_t i = 0; i < _symbolicNames.size(); ++i) {
-		std::string name = _vocabulary.getLiteralName(i);
-		if (name.empty()) {
-			name = _vocabulary.getSymbolicName(i);
-		}
-
-		if (name.empty()) {
-			_tokenNames.push_back("<INVALID>");
-		} else {
-      _tokenNames.push_back(name);
-    }
-	}
-
-  _serializedATN = {
-    0x3, 0x608b, 0xa72a, 0x8133, 0xb9ed, 0x417c, 0x3be7, 0x7786, 0x5964, 
-    0x3, 0x52, 0x134, 0x4, 0x2, 0x9, 0x2, 0x4, 0x3, 0x9, 0x3, 0x4, 0x4, 
-    0x9, 0x4, 0x4, 0x5, 0x9, 0x5, 0x4, 0x6, 0x9, 0x6, 0x4, 0x7, 0x9, 0x7, 
-    0x4, 0x8, 0x9, 0x8, 0x4, 0x9, 0x9, 0x9, 0x4, 0xa, 0x9, 0xa, 0x4, 0xb, 
-    0x9, 0xb, 0x4, 0xc, 0x9, 0xc, 0x4, 0xd, 0x9, 0xd, 0x4, 0xe, 0x9, 0xe, 
-    0x4, 0xf, 0x9, 0xf, 0x4, 0x10, 0x9, 0x10, 0x4, 0x11, 0x9, 0x11, 0x4, 
-    0x12, 0x9, 0x12, 0x4, 0x13, 0x9, 0x13, 0x4, 0x14, 0x9, 0x14, 0x4, 0x15, 
-    0x9, 0x15, 0x4, 0x16, 0x9, 0x16, 0x4, 0x17, 0x9, 0x17, 0x4, 0x18, 0x9, 
-    0x18, 0x4, 0x19, 0x9, 0x19, 0x4, 0x1a, 0x9, 0x1a, 0x4, 0x1b, 0x9, 0x1b, 
-    0x4, 0x1c, 0x9, 0x1c, 0x4, 0x1d, 0x9, 0x1d, 0x4, 0x1e, 0x9, 0x1e, 0x4, 
-    0x1f, 0x9, 0x1f, 0x4, 0x20, 0x9, 0x20, 0x4, 0x21, 0x9, 0x21, 0x4, 0x22, 
-    0x9, 0x22, 0x4, 0x23, 0x9, 0x23, 0x4, 0x24, 0x9, 0x24, 0x3, 0x2, 0x3, 
-    0x2, 0x7, 0x2, 0x4b, 0xa, 0x2, 0xc, 0x2, 0xe, 0x2, 0x4e, 0xb, 0x2, 0x3, 
-    0x2, 0x3, 0x2, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 0x3, 
-    0x3, 0x3, 0x4, 0x3, 0x4, 0x5, 0x4, 0x5a, 0xa, 0x4, 0x3, 0x4, 0x3, 0x4, 
-    0x3, 0x5, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0x61, 0xa, 0x5, 0x3, 0x5, 0x3, 
-    0x5, 0x3, 0x5, 0x3, 0x5, 0x5, 0x5, 0x67, 0xa, 0x5, 0x7, 0x5, 0x69, 0xa, 
-    0x5, 0xc, 0x5, 0xe, 0x5, 0x6c, 0xb, 0x5, 0x3, 0x6, 0x3, 0x6, 0x3, 0x7, 
-    0x3, 0x7, 0x5, 0x7, 0x72, 0xa, 0x7, 0x3, 0x8, 0x3, 0x8, 0x3, 0x8, 0x3, 
-    0x9, 0x3, 0x9, 0x5, 0x9, 0x79, 0xa, 0x9, 0x3, 0xa, 0x3, 0xa, 0x3, 0xa, 
-    0x3, 0xa, 0x3, 0xa, 0x3, 0xa, 0x7, 0xa, 0x81, 0xa, 0xa, 0xc, 0xa, 0xe, 
-    0xa, 0x84, 0xb, 0xa, 0x5, 0xa, 0x86, 0xa, 0xa, 0x3, 0xb, 0x3, 0xb, 0x3, 
-    0xc, 0x3, 0xc, 0x3, 0xc, 0x5, 0xc, 0x8d, 0xa, 0xc, 0x3, 0xd, 0x3, 0xd, 
-    0x3, 0xe, 0x3, 0xe, 0x3, 0xf, 0x3, 0xf, 0x5, 0xf, 0x95, 0xa, 0xf, 0x3, 
-    0x10, 0x3, 0x10, 0x3, 0x10, 0x5, 0x10, 0x9a, 0xa, 0x10, 0x3, 0x11, 0x3, 
-    0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 
-    0x3, 0x11, 0x7, 0x11, 0xa5, 0xa, 0x11, 0xc, 0x11, 0xe, 0x11, 0xa8, 0xb, 
-    0x11, 0x3, 0x11, 0x3, 0x11, 0x3, 0x11, 0x5, 0x11, 0xad, 0xa, 0x11, 0x3, 
-    0x12, 0x3, 0x12, 0x3, 0x12, 0x3, 0x12, 0x3, 0x12, 0x3, 0x13, 0x3, 0x13, 
-    0x3, 0x13, 0x3, 0x13, 0x6, 0x13, 0xb8, 0xa, 0x13, 0xd, 0x13, 0xe, 0x13, 
-    0xb9, 0x3, 0x13, 0x3, 0x13, 0x5, 0x13, 0xbe, 0xa, 0x13, 0x3, 0x14, 0x3, 
-    0x14, 0x3, 0x15, 0x3, 0x15, 0x3, 0x15, 0x7, 0x15, 0xc5, 0xa, 0x15, 0xc, 
-    0x15, 0xe, 0x15, 0xc8, 0xb, 0x15, 0x3, 0x16, 0x3, 0x16, 0x3, 0x16, 0x7, 
-    0x16, 0xcd, 0xa, 0x16, 0xc, 0x16, 0xe, 0x16, 0xd0, 0xb, 0x16, 0x3, 0x17, 
-    0x3, 0x17, 0x3, 0x17, 0x5, 0x17, 0xd5, 0xa, 0x17, 0x3, 0x18, 0x3, 0x18, 
-    0x3, 0x18, 0x3, 0x18, 0x7, 0x18, 0xdb, 0xa, 0x18, 0xc, 0x18, 0xe, 0x18, 
-    0xde, 0xb, 0x18, 0x3, 0x19, 0x3, 0x19, 0x3, 0x1a, 0x3, 0x1a, 0x3, 0x1a, 
-    0x3, 0x1a, 0x7, 0x1a, 0xe6, 0xa, 0x1a, 0xc, 0x1a, 0xe, 0x1a, 0xe9, 0xb, 
-    0x1a, 0x3, 0x1b, 0x3, 0x1b, 0x3, 0x1c, 0x3, 0x1c, 0x3, 0x1c, 0x3, 0x1c, 
-    0x7, 0x1c, 0xf1, 0xa, 0x1c, 0xc, 0x1c, 0xe, 0x1c, 0xf4, 0xb, 0x1c, 0x3, 
-    0x1d, 0x3, 0x1d, 0x3, 0x1e, 0x3, 0x1e, 0x3, 0x1e, 0x5, 0x1e, 0xfb, 0xa, 
-    0x1e, 0x3, 0x1f, 0x3, 0x1f, 0x5, 0x1f, 0xff, 0xa, 0x1f, 0x3, 0x20, 0x3, 
-    0x20, 0x5, 0x20, 0x103, 0xa, 0x20, 0x3, 0x20, 0x3, 0x20, 0x3, 0x21, 
-    0x3, 0x21, 0x3, 0x21, 0x6, 0x21, 0x10a, 0xa, 0x21, 0xd, 0x21, 0xe, 0x21, 
-    0x10b, 0x3, 0x21, 0x3, 0x21, 0x3, 0x21, 0x3, 0x21, 0x3, 0x21, 0x3, 0x21, 
-    0x3, 0x21, 0x5, 0x21, 0x115, 0xa, 0x21, 0x3, 0x22, 0x3, 0x22, 0x3, 0x22, 
-    0x7, 0x22, 0x11a, 0xa, 0x22, 0xc, 0x22, 0xe, 0x22, 0x11d, 0xb, 0x22, 
-    0x3, 0x22, 0x5, 0x22, 0x120, 0xa, 0x22, 0x3, 0x23, 0x3, 0x23, 0x3, 0x23, 
-    0x7, 0x23, 0x125, 0xa, 0x23, 0xc, 0x23, 0xe, 0x23, 0x128, 0xb, 0x23, 
-    0x3, 0x23, 0x5, 0x23, 0x12b, 0xa, 0x23, 0x3, 0x24, 0x3, 0x24, 0x3, 0x24, 
-    0x3, 0x24, 0x3, 0x24, 0x5, 0x24, 0x132, 0xa, 0x24, 0x3, 0x24, 0x2, 0x2, 
-    0x25, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10, 0x12, 0x14, 0x16, 0x18, 
-    0x1a, 0x1c, 0x1e, 0x20, 0x22, 0x24, 0x26, 0x28, 0x2a, 0x2c, 0x2e, 0x30, 
-    0x32, 0x34, 0x36, 0x38, 0x3a, 0x3c, 0x3e, 0x40, 0x42, 0x44, 0x46, 0x2, 
-    0x6, 0x5, 0x2, 0x42, 0x44, 0x46, 0x47, 0x4e, 0x4e, 0x4, 0x2, 0x39, 0x3d, 
-    0x3f, 0x3f, 0x3, 0x2, 0x31, 0x32, 0x4, 0x2, 0x22, 0x22, 0x33, 0x35, 
-    0x2, 0x138, 0x2, 0x4c, 0x3, 0x2, 0x2, 0x2, 0x4, 0x51, 0x3, 0x2, 0x2, 
-    0x2, 0x6, 0x57, 0x3, 0x2, 0x2, 0x2, 0x8, 0x5d, 0x3, 0x2, 0x2, 0x2, 0xa, 
-    0x6d, 0x3, 0x2, 0x2, 0x2, 0xc, 0x71, 0x3, 0x2, 0x2, 0x2, 0xe, 0x73, 
-    0x3, 0x2, 0x2, 0x2, 0x10, 0x78, 0x3, 0x2, 0x2, 0x2, 0x12, 0x7a, 0x3, 
-    0x2, 0x2, 0x2, 0x14, 0x87, 0x3, 0x2, 0x2, 0x2, 0x16, 0x8c, 0x3, 0x2, 
-    0x2, 0x2, 0x18, 0x8e, 0x3, 0x2, 0x2, 0x2, 0x1a, 0x90, 0x3, 0x2, 0x2, 
-    0x2, 0x1c, 0x92, 0x3, 0x2, 0x2, 0x2, 0x1e, 0x99, 0x3, 0x2, 0x2, 0x2, 
-    0x20, 0x9b, 0x3, 0x2, 0x2, 0x2, 0x22, 0xae, 0x3, 0x2, 0x2, 0x2, 0x24, 
-    0xbd, 0x3, 0x2, 0x2, 0x2, 0x26, 0xbf, 0x3, 0x2, 0x2, 0x2, 0x28, 0xc1, 
-    0x3, 0x2, 0x2, 0x2, 0x2a, 0xc9, 0x3, 0x2, 0x2, 0x2, 0x2c, 0xd4, 0x3, 
-    0x2, 0x2, 0x2, 0x2e, 0xd6, 0x3, 0x2, 0x2, 0x2, 0x30, 0xdf, 0x3, 0x2, 
-    0x2, 0x2, 0x32, 0xe1, 0x3, 0x2, 0x2, 0x2, 0x34, 0xea, 0x3, 0x2, 0x2, 
-    0x2, 0x36, 0xec, 0x3, 0x2, 0x2, 0x2, 0x38, 0xf5, 0x3, 0x2, 0x2, 0x2, 
-    0x3a, 0xfa, 0x3, 0x2, 0x2, 0x2, 0x3c, 0xfc, 0x3, 0x2, 0x2, 0x2, 0x3e, 
-    0x100, 0x3, 0x2, 0x2, 0x2, 0x40, 0x114, 0x3, 0x2, 0x2, 0x2, 0x42, 0x116, 
-    0x3, 0x2, 0x2, 0x2, 0x44, 0x121, 0x3, 0x2, 0x2, 0x2, 0x46, 0x131, 0x3, 
-    0x2, 0x2, 0x2, 0x48, 0x4b, 0x7, 0x16, 0x2, 0x2, 0x49, 0x4b, 0x5, 0xc, 
-    0x7, 0x2, 0x4a, 0x48, 0x3, 0x2, 0x2, 0x2, 0x4a, 0x49, 0x3, 0x2, 0x2, 
-    0x2, 0x4b, 0x4e, 0x3, 0x2, 0x2, 0x2, 0x4c, 0x4a, 0x3, 0x2, 0x2, 0x2, 
-    0x4c, 0x4d, 0x3, 0x2, 0x2, 0x2, 0x4d, 0x4f, 0x3, 0x2, 0x2, 0x2, 0x4e, 
-    0x4c, 0x3, 0x2, 0x2, 0x2, 0x4f, 0x50, 0x7, 0x2, 0x2, 0x3, 0x50, 0x3, 
-    0x3, 0x2, 0x2, 0x2, 0x51, 0x52, 0x7, 0x6, 0x2, 0x2, 0x52, 0x53, 0x7, 
-    0x17, 0x2, 0x2, 0x53, 0x54, 0x5, 0x6, 0x4, 0x2, 0x54, 0x55, 0x7, 0x26, 
-    0x2, 0x2, 0x55, 0x56, 0x5, 0x24, 0x13, 0x2, 0x56, 0x5, 0x3, 0x2, 0x2, 
-    0x2, 0x57, 0x59, 0x7, 0x23, 0x2, 0x2, 0x58, 0x5a, 0x5, 0x8, 0x5, 0x2, 
-    0x59, 0x58, 0x3, 0x2, 0x2, 0x2, 0x59, 0x5a, 0x3, 0x2, 0x2, 0x2, 0x5a, 
-    0x5b, 0x3, 0x2, 0x2, 0x2, 0x5b, 0x5c, 0x7, 0x24, 0x2, 0x2, 0x5c, 0x7, 
-    0x3, 0x2, 0x2, 0x2, 0x5d, 0x60, 0x5, 0xa, 0x6, 0x2, 0x5e, 0x5f, 0x7, 
-    0x29, 0x2, 0x2, 0x5f, 0x61, 0x5, 0x26, 0x14, 0x2, 0x60, 0x5e, 0x3, 0x2, 
-    0x2, 0x2, 0x60, 0x61, 0x3, 0x2, 0x2, 0x2, 0x61, 0x6a, 0x3, 0x2, 0x2, 
-    0x2, 0x62, 0x63, 0x7, 0x25, 0x2, 0x2, 0x63, 0x66, 0x5, 0xa, 0x6, 0x2, 
-    0x64, 0x65, 0x7, 0x29, 0x2, 0x2, 0x65, 0x67, 0x5, 0x26, 0x14, 0x2, 0x66, 
-    0x64, 0x3, 0x2, 0x2, 0x2, 0x66, 0x67, 0x3, 0x2, 0x2, 0x2, 0x67, 0x69, 
-    0x3, 0x2, 0x2, 0x2, 0x68, 0x62, 0x3, 0x2, 0x2, 0x2, 0x69, 0x6c, 0x3, 
-    0x2, 0x2, 0x2, 0x6a, 0x68, 0x3, 0x2, 0x2, 0x2, 0x6a, 0x6b, 0x3, 0x2, 
-    0x2, 0x2, 0x6b, 0x9, 0x3, 0x2, 0x2, 0x2, 0x6c, 0x6a, 0x3, 0x2, 0x2, 
-    0x2, 0x6d, 0x6e, 0x7, 0x17, 0x2, 0x2, 0x6e, 0xb, 0x3, 0x2, 0x2, 0x2, 
-    0x6f, 0x72, 0x5, 0xe, 0x8, 0x2, 0x70, 0x72, 0x5, 0x1e, 0x10, 0x2, 0x71, 
-    0x6f, 0x3, 0x2, 0x2, 0x2, 0x71, 0x70, 0x3, 0x2, 0x2, 0x2, 0x72, 0xd, 
-    0x3, 0x2, 0x2, 0x2, 0x73, 0x74, 0x5, 0x10, 0x9, 0x2, 0x74, 0x75, 0x7, 
-    0x16, 0x2, 0x2, 0x75, 0xf, 0x3, 0x2, 0x2, 0x2, 0x76, 0x79, 0x5, 0x12, 
-    0xa, 0x2, 0x77, 0x79, 0x5, 0x16, 0xc, 0x2, 0x78, 0x76, 0x3, 0x2, 0x2, 
-    0x2, 0x78, 0x77, 0x3, 0x2, 0x2, 0x2, 0x79, 0x11, 0x3, 0x2, 0x2, 0x2, 
-    0x7a, 0x85, 0x5, 0x42, 0x22, 0x2, 0x7b, 0x7c, 0x5, 0x14, 0xb, 0x2, 0x7c, 
-    0x7d, 0x5, 0x42, 0x22, 0x2, 0x7d, 0x86, 0x3, 0x2, 0x2, 0x2, 0x7e, 0x7f, 
-    0x7, 0x29, 0x2, 0x2, 0x7f, 0x81, 0x5, 0x42, 0x22, 0x2, 0x80, 0x7e, 0x3, 
-    0x2, 0x2, 0x2, 0x81, 0x84, 0x3, 0x2, 0x2, 0x2, 0x82, 0x80, 0x3, 0x2, 
-    0x2, 0x2, 0x82, 0x83, 0x3, 0x2, 0x2, 0x2, 0x83, 0x86, 0x3, 0x2, 0x2, 
-    0x2, 0x84, 0x82, 0x3, 0x2, 0x2, 0x2, 0x85, 0x7b, 0x3, 0x2, 0x2, 0x2, 
-    0x85, 0x82, 0x3, 0x2, 0x2, 0x2, 0x86, 0x13, 0x3, 0x2, 0x2, 0x2, 0x87, 
-    0x88, 0x9, 0x2, 0x2, 0x2, 0x88, 0x15, 0x3, 0x2, 0x2, 0x2, 0x89, 0x8d, 
-    0x5, 0x18, 0xd, 0x2, 0x8a, 0x8d, 0x5, 0x1a, 0xe, 0x2, 0x8b, 0x8d, 0x5, 
-    0x1c, 0xf, 0x2, 0x8c, 0x89, 0x3, 0x2, 0x2, 0x2, 0x8c, 0x8a, 0x3, 0x2, 
-    0x2, 0x2, 0x8c, 0x8b, 0x3, 0x2, 0x2, 0x2, 0x8d, 0x17, 0x3, 0x2, 0x2, 
-    0x2, 0x8e, 0x8f, 0x7, 0x15, 0x2, 0x2, 0x8f, 0x19, 0x3, 0x2, 0x2, 0x2, 
-    0x90, 0x91, 0x7, 0x14, 0x2, 0x2, 0x91, 0x1b, 0x3, 0x2, 0x2, 0x2, 0x92, 
-    0x94, 0x7, 0x7, 0x2, 0x2, 0x93, 0x95, 0x5, 0x42, 0x22, 0x2, 0x94, 0x93, 
-    0x3, 0x2, 0x2, 0x2, 0x94, 0x95, 0x3, 0x2, 0x2, 0x2, 0x95, 0x1d, 0x3, 
-    0x2, 0x2, 0x2, 0x96, 0x9a, 0x5, 0x20, 0x11, 0x2, 0x97, 0x9a, 0x5, 0x22, 
-    0x12, 0x2, 0x98, 0x9a, 0x5, 0x4, 0x3, 0x2, 0x99, 0x96, 0x3, 0x2, 0x2, 
-    0x2, 0x99, 0x97, 0x3, 0x2, 0x2, 0x2, 0x99, 0x98, 0x3, 0x2, 0x2, 0x2, 
-    0x9a, 0x1f, 0x3, 0x2, 0x2, 0x2, 0x9b, 0x9c, 0x7, 0x8, 0x2, 0x2, 0x9c, 
-    0x9d, 0x5, 0x26, 0x14, 0x2, 0x9d, 0x9e, 0x7, 0x26, 0x2, 0x2, 0x9e, 0xa6, 
-    0x5, 0x24, 0x13, 0x2, 0x9f, 0xa0, 0x7, 0x9, 0x2, 0x2, 0xa0, 0xa1, 0x5, 
-    0x26, 0x14, 0x2, 0xa1, 0xa2, 0x7, 0x26, 0x2, 0x2, 0xa2, 0xa3, 0x5, 0x24, 
-    0x13, 0x2, 0xa3, 0xa5, 0x3, 0x2, 0x2, 0x2, 0xa4, 0x9f, 0x3, 0x2, 0x2, 
-    0x2, 0xa5, 0xa8, 0x3, 0x2, 0x2, 0x2, 0xa6, 0xa4, 0x3, 0x2, 0x2, 0x2, 
-    0xa6, 0xa7, 0x3, 0x2, 0x2, 0x2, 0xa7, 0xac, 0x3, 0x2, 0x2, 0x2, 0xa8, 
-    0xa6, 0x3, 0x2, 0x2, 0x2, 0xa9, 0xaa, 0x7, 0xa, 0x2, 0x2, 0xaa, 0xab, 
-    0x7, 0x26, 0x2, 0x2, 0xab, 0xad, 0x5, 0x24, 0x13, 0x2, 0xac, 0xa9, 0x3, 
-    0x2, 0x2, 0x2, 0xac, 0xad, 0x3, 0x2, 0x2, 0x2, 0xad, 0x21, 0x3, 0x2, 
-    0x2, 0x2, 0xae, 0xaf, 0x7, 0xb, 0x2, 0x2, 0xaf, 0xb0, 0x5, 0x26, 0x14, 
-    0x2, 0xb0, 0xb1, 0x7, 0x26, 0x2, 0x2, 0xb1, 0xb2, 0x5, 0x24, 0x13, 0x2, 
-    0xb2, 0x23, 0x3, 0x2, 0x2, 0x2, 0xb3, 0xbe, 0x5, 0xe, 0x8, 0x2, 0xb4, 
-    0xb5, 0x7, 0x16, 0x2, 0x2, 0xb5, 0xb7, 0x7, 0x51, 0x2, 0x2, 0xb6, 0xb8, 
-    0x5, 0xc, 0x7, 0x2, 0xb7, 0xb6, 0x3, 0x2, 0x2, 0x2, 0xb8, 0xb9, 0x3, 
-    0x2, 0x2, 0x2, 0xb9, 0xb7, 0x3, 0x2, 0x2, 0x2, 0xb9, 0xba, 0x3, 0x2, 
-    0x2, 0x2, 0xba, 0xbb, 0x3, 0x2, 0x2, 0x2, 0xbb, 0xbc, 0x7, 0x52, 0x2, 
-    0x2, 0xbc, 0xbe, 0x3, 0x2, 0x2, 0x2, 0xbd, 0xb3, 0x3, 0x2, 0x2, 0x2, 
-    0xbd, 0xb4, 0x3, 0x2, 0x2, 0x2, 0xbe, 0x25, 0x3, 0x2, 0x2, 0x2, 0xbf, 
-    0xc0, 0x5, 0x28, 0x15, 0x2, 0xc0, 0x27, 0x3, 0x2, 0x2, 0x2, 0xc1, 0xc6, 
-    0x5, 0x2a, 0x16, 0x2, 0xc2, 0xc3, 0x7, 0xe, 0x2, 0x2, 0xc3, 0xc5, 0x5, 
-    0x2a, 0x16, 0x2, 0xc4, 0xc2, 0x3, 0x2, 0x2, 0x2, 0xc5, 0xc8, 0x3, 0x2, 
-    0x2, 0x2, 0xc6, 0xc4, 0x3, 0x2, 0x2, 0x2, 0xc6, 0xc7, 0x3, 0x2, 0x2, 
-    0x2, 0xc7, 0x29, 0x3, 0x2, 0x2, 0x2, 0xc8, 0xc6, 0x3, 0x2, 0x2, 0x2, 
-    0xc9, 0xce, 0x5, 0x2c, 0x17, 0x2, 0xca, 0xcb, 0x7, 0xf, 0x2, 0x2, 0xcb, 
-    0xcd, 0x5, 0x2c, 0x17, 0x2, 0xcc, 0xca, 0x3, 0x2, 0x2, 0x2, 0xcd, 0xd0, 
-    0x3, 0x2, 0x2, 0x2, 0xce, 0xcc, 0x3, 0x2, 0x2, 0x2, 0xce, 0xcf, 0x3, 
-    0x2, 0x2, 0x2, 0xcf, 0x2b, 0x3, 0x2, 0x2, 0x2, 0xd0, 0xce, 0x3, 0x2, 
-    0x2, 0x2, 0xd1, 0xd2, 0x7, 0x10, 0x2, 0x2, 0xd2, 0xd5, 0x5, 0x2c, 0x17, 
-    0x2, 0xd3, 0xd5, 0x5, 0x2e, 0x18, 0x2, 0xd4, 0xd1, 0x3, 0x2, 0x2, 0x2, 
-    0xd4, 0xd3, 0x3, 0x2, 0x2, 0x2, 0xd5, 0x2d, 0x3, 0x2, 0x2, 0x2, 0xd6, 
-    0xdc, 0x5, 0x32, 0x1a, 0x2, 0xd7, 0xd8, 0x5, 0x30, 0x19, 0x2, 0xd8, 
-    0xd9, 0x5, 0x32, 0x1a, 0x2, 0xd9, 0xdb, 0x3, 0x2, 0x2, 0x2, 0xda, 0xd7, 
-    0x3, 0x2, 0x2, 0x2, 0xdb, 0xde, 0x3, 0x2, 0x2, 0x2, 0xdc, 0xda, 0x3, 
-    0x2, 0x2, 0x2, 0xdc, 0xdd, 0x3, 0x2, 0x2, 0x2, 0xdd, 0x2f, 0x3, 0x2, 
-    0x2, 0x2, 0xde, 0xdc, 0x3, 0x2, 0x2, 0x2, 0xdf, 0xe0, 0x9, 0x3, 0x2, 
-    0x2, 0xe0, 0x31, 0x3, 0x2, 0x2, 0x2, 0xe1, 0xe7, 0x5, 0x36, 0x1c, 0x2, 
-    0xe2, 0xe3, 0x5, 0x34, 0x1b, 0x2, 0xe3, 0xe4, 0x5, 0x36, 0x1c, 0x2, 
-    0xe4, 0xe6, 0x3, 0x2, 0x2, 0x2, 0xe5, 0xe2, 0x3, 0x2, 0x2, 0x2, 0xe6, 
-    0xe9, 0x3, 0x2, 0x2, 0x2, 0xe7, 0xe5, 0x3, 0x2, 0x2, 0x2, 0xe7, 0xe8, 
-    0x3, 0x2, 0x2, 0x2, 0xe8, 0x33, 0x3, 0x2, 0x2, 0x2, 0xe9, 0xe7, 0x3, 
-    0x2, 0x2, 0x2, 0xea, 0xeb, 0x9, 0x4, 0x2, 0x2, 0xeb, 0x35, 0x3, 0x2, 
-    0x2, 0x2, 0xec, 0xf2, 0x5, 0x3a, 0x1e, 0x2, 0xed, 0xee, 0x5, 0x38, 0x1d, 
-    0x2, 0xee, 0xef, 0x5, 0x3a, 0x1e, 0x2, 0xef, 0xf1, 0x3, 0x2, 0x2, 0x2, 
-    0xf0, 0xed, 0x3, 0x2, 0x2, 0x2, 0xf1, 0xf4, 0x3, 0x2, 0x2, 0x2, 0xf2, 
-    0xf0, 0x3, 0x2, 0x2, 0x2, 0xf2, 0xf3, 0x3, 0x2, 0x2, 0x2, 0xf3, 0x37, 
-    0x3, 0x2, 0x2, 0x2, 0xf4, 0xf2, 0x3, 0x2, 0x2, 0x2, 0xf5, 0xf6, 0x9, 
-    0x5, 0x2, 0x2, 0xf6, 0x39, 0x3, 0x2, 0x2, 0x2, 0xf7, 0xf8, 0x9, 0x4, 
-    0x2, 0x2, 0xf8, 0xfb, 0x5, 0x3a, 0x1e, 0x2, 0xf9, 0xfb, 0x5, 0x3c, 0x1f, 
-    0x2, 0xfa, 0xf7, 0x3, 0x2, 0x2, 0x2, 0xfa, 0xf9, 0x3, 0x2, 0x2, 0x2, 
-    0xfb, 0x3b, 0x3, 0x2, 0x2, 0x2, 0xfc, 0xfe, 0x5, 0x40, 0x21, 0x2, 0xfd, 
-    0xff, 0x5, 0x3e, 0x20, 0x2, 0xfe, 0xfd, 0x3, 0x2, 0x2, 0x2, 0xfe, 0xff, 
-    0x3, 0x2, 0x2, 0x2, 0xff, 0x3d, 0x3, 0x2, 0x2, 0x2, 0x100, 0x102, 0x7, 
-    0x23, 0x2, 0x2, 0x101, 0x103, 0x5, 0x44, 0x23, 0x2, 0x102, 0x101, 0x3, 
-    0x2, 0x2, 0x2, 0x102, 0x103, 0x3, 0x2, 0x2, 0x2, 0x103, 0x104, 0x3, 
-    0x2, 0x2, 0x2, 0x104, 0x105, 0x7, 0x24, 0x2, 0x2, 0x105, 0x3f, 0x3, 
-    0x2, 0x2, 0x2, 0x106, 0x115, 0x7, 0x17, 0x2, 0x2, 0x107, 0x115, 0x7, 
-    0x4, 0x2, 0x2, 0x108, 0x10a, 0x7, 0x3, 0x2, 0x2, 0x109, 0x108, 0x3, 
-    0x2, 0x2, 0x2, 0x10a, 0x10b, 0x3, 0x2, 0x2, 0x2, 0x10b, 0x109, 0x3, 
-    0x2, 0x2, 0x2, 0x10b, 0x10c, 0x3, 0x2, 0x2, 0x2, 0x10c, 0x115, 0x3, 
-    0x2, 0x2, 0x2, 0x10d, 0x115, 0x7, 0x11, 0x2, 0x2, 0x10e, 0x115, 0x7, 
-    0x12, 0x2, 0x2, 0x10f, 0x115, 0x7, 0x13, 0x2, 0x2, 0x110, 0x111, 0x7, 
-    0x23, 0x2, 0x2, 0x111, 0x112, 0x5, 0x26, 0x14, 0x2, 0x112, 0x113, 0x7, 
-    0x24, 0x2, 0x2, 0x113, 0x115, 0x3, 0x2, 0x2, 0x2, 0x114, 0x106, 0x3, 
-    0x2, 0x2, 0x2, 0x114, 0x107, 0x3, 0x2, 0x2, 0x2, 0x114, 0x109, 0x3, 
-    0x2, 0x2, 0x2, 0x114, 0x10d, 0x3, 0x2, 0x2, 0x2, 0x114, 0x10e, 0x3, 
-    0x2, 0x2, 0x2, 0x114, 0x10f, 0x3, 0x2, 0x2, 0x2, 0x114, 0x110, 0x3, 
-    0x2, 0x2, 0x2, 0x115, 0x41, 0x3, 0x2, 0x2, 0x2, 0x116, 0x11b, 0x5, 0x26, 
-    0x14, 0x2, 0x117, 0x118, 0x7, 0x25, 0x2, 0x2, 0x118, 0x11a, 0x5, 0x26, 
-    0x14, 0x2, 0x119, 0x117, 0x3, 0x2, 0x2, 0x2, 0x11a, 0x11d, 0x3, 0x2, 
-    0x2, 0x2, 0x11b, 0x119, 0x3, 0x2, 0x2, 0x2, 0x11b, 0x11c, 0x3, 0x2, 
-    0x2, 0x2, 0x11c, 0x11f, 0x3, 0x2, 0x2, 0x2, 0x11d, 0x11b, 0x3, 0x2, 
-    0x2, 0x2, 0x11e, 0x120, 0x7, 0x25, 0x2, 0x2, 0x11f, 0x11e, 0x3, 0x2, 
-    0x2, 0x2, 0x11f, 0x120, 0x3, 0x2, 0x2, 0x2, 0x120, 0x43, 0x3, 0x2, 0x2, 
-    0x2, 0x121, 0x126, 0x5, 0x46, 0x24, 0x2, 0x122, 0x123, 0x7, 0x25, 0x2, 
-    0x2, 0x123, 0x125, 0x5, 0x46, 0x24, 0x2, 0x124, 0x122, 0x3, 0x2, 0x2, 
-    0x2, 0x125, 0x128, 0x3, 0x2, 0x2, 0x2, 0x126, 0x124, 0x3, 0x2, 0x2, 
-    0x2, 0x126, 0x127, 0x3, 0x2, 0x2, 0x2, 0x127, 0x12a, 0x3, 0x2, 0x2, 
-    0x2, 0x128, 0x126, 0x3, 0x2, 0x2, 0x2, 0x129, 0x12b, 0x7, 0x25, 0x2, 
-    0x2, 0x12a, 0x129, 0x3, 0x2, 0x2, 0x2, 0x12a, 0x12b, 0x3, 0x2, 0x2, 
-    0x2, 0x12b, 0x45, 0x3, 0x2, 0x2, 0x2, 0x12c, 0x132, 0x5, 0x26, 0x14, 
-    0x2, 0x12d, 0x12e, 0x5, 0x26, 0x14, 0x2, 0x12e, 0x12f, 0x7, 0x29, 0x2, 
-    0x2, 0x12f, 0x130, 0x5, 0x26, 0x14, 0x2, 0x130, 0x132, 0x3, 0x2, 0x2, 
-    0x2, 0x131, 0x12c, 0x3, 0x2, 0x2, 0x2, 0x131, 0x12d, 0x3, 0x2, 0x2, 
-    0x2, 0x132, 0x47, 0x3, 0x2, 0x2, 0x2, 0x23, 0x4a, 0x4c, 0x59, 0x60, 
-    0x66, 0x6a, 0x71, 0x78, 0x82, 0x85, 0x8c, 0x94, 0x99, 0xa6, 0xac, 0xb9, 
-    0xbd, 0xc6, 0xce, 0xd4, 0xdc, 0xe7, 0xf2, 0xfa, 0xfe, 0x102, 0x10b, 
-    0x114, 0x11b, 0x11f, 0x126, 0x12a, 0x131, 
-  };
-
-  atn::ATNDeserializer deserializer;
-  _atn = deserializer.deserialize(_serializedATN);
-
-  size_t count = _atn.getNumberOfDecisions();
-  _decisionToDFA.reserve(count);
-  for (size_t i = 0; i < count; i++) { 
-    _decisionToDFA.emplace_back(_atn.getDecisionState(i), i);
-  }
+void Python3Parser::initialize() {
+#if ANTLR4_USE_THREAD_LOCAL_CACHE
+  python3parserParserInitialize();
+#else
+  ::antlr4::internal::call_once(python3parserParserOnceFlag, python3parserParserInitialize);
+#endif
 }
-
-Python3Parser::Initializer Python3Parser::_init;

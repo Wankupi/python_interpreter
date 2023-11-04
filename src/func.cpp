@@ -4,13 +4,13 @@
 
 std::string func::getName() const { return "__builtin_base__"; }
 
-antlrcpp::Any func::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
+std::any func::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
 	return {};
 }
 
 std::string func_print::getName() const { return "__builtin_print__"; }
 
-antlrcpp::Any func_print::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
+std::any func_print::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
 	std::vector<Python3Parser::ArgumentContext *> list;
 	if (ctx) list = ctx->argument();
 	if (!list.empty()) {
@@ -25,25 +25,25 @@ antlrcpp::Any func_print::call(EvalVisitor &vis, Python3Parser::ArglistContext *
 
 std::string func_int::getName() const { return "__builtin_int__"; }
 
-antlrcpp::Any func_int::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
+std::any func_int::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
 	return toInt(vis.visit(ctx));
 }
 
 std::string func_float::getName() const { return "__builtin_float__"; }
 
-antlrcpp::Any func_float::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
+std::any func_float::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
 	return toFloat(vis.visit(ctx));
 }
 
 std::string func_str::getName() const { return "__builtin_str__"; }
 
-antlrcpp::Any func_str::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
+std::any func_str::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
 	return toStr(vis.visit(ctx));
 }
 
 std::string func_bool::getName() const { return "__builtin_bool__"; }
 
-antlrcpp::Any func_bool::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
+std::any func_bool::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
 	return toBool(vis.visit(ctx));
 }
 
@@ -56,9 +56,9 @@ func_user::func_user(EvalVisitor &vis, Python3Parser::FuncdefContext *_node) : n
 	int k = n - m;
 	paraLists.reserve(n);
 	for (int i = 0; i < k; ++i)
-		paraLists.emplace_back(need[i]->getText(), antlrcpp::Any{});
+		paraLists.emplace_back(need[i]->getText(), std::any{});
 	for (int i = k; i < n; ++i) {
-		antlrcpp::Any &&val = vis.visit(test[i - k]);
+		std::any &&val = vis.visit(test[i - k]);
 		testVar(val);
 		paraLists.emplace_back(need[i]->getText(), std::move(val));
 	}
@@ -71,13 +71,13 @@ std::string func_user::getName() const {
 		return "__empty_function__";
 }
 
-antlrcpp::Any func_user::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
-	std::unordered_map<std::string, antlrcpp::Any> new_scope;
+std::any func_user::call(EvalVisitor &vis, Python3Parser::ArglistContext *ctx) const {
+	std::unordered_map<std::string, std::any> new_scope;
 	if (ctx) {
 		for (int i = 0; ctx->argument(i); ++i) {
-			antlrcpp::Any &&res = vis.visit(ctx->argument(i));
-			if (res.is<Variable>()) {
-				Variable &var = res.as<Variable>();
+			std::any &&res = vis.visit(ctx->argument(i));
+			if (is<Variable>(res)) {
+				Variable &var = as<Variable>(res);
 				new_scope.insert(std::move(var));
 			}
 			else
@@ -88,14 +88,14 @@ antlrcpp::Any func_user::call(EvalVisitor &vis, Python3Parser::ArglistContext *c
 		if (new_scope.find(p.first) == new_scope.end())
 			new_scope.insert(p);
 	scope.in(std::move(new_scope));
-	antlrcpp::Any &&val = vis.visit(node->suite());
+	std::any &&val = vis.visit(node->suite());
 	scope.out();
 
-	if (val.is<FlowStmt>()) {
-		FlowStmt &fs = val.as<FlowStmt>();
+	if (is<FlowStmt>(val)) {
+		FlowStmt &fs = as<FlowStmt>(val);
 		if (fs.word == FlowStmt::FlowWord::return_stmt) {
-			if (fs.val.is<std::vector<antlrcpp::Any>>()) {
-				std::vector<antlrcpp::Any> &ret = fs.val.as<std::vector<antlrcpp::Any>>();
+			if (is<std::vector<std::any>>(fs.val)) {
+				std::vector<std::any> &ret = as<std::vector<std::any>>(fs.val);
 				for (auto &x : ret)
 					testVar(x);
 				if (ret.size() == 1) return std::move(ret[0]);

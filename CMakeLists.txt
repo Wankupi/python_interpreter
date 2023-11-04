@@ -1,41 +1,23 @@
 ### YOU CAN'T MODIFY THE CODE BELOW
-cmake_minimum_required(VERSION 3.10.2)
+cmake_minimum_required(VERSION 3.15.2)
 project(python_interpreter)
-set(CMAKE_CXX_STANDARD 14)
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Ofast")
+
+include_directories(/usr/include/antlr4-runtime/)
 include_directories(
-        ${PROJECT_SOURCE_DIR}/generated/
-        ${PROJECT_SOURCE_DIR}/third_party/
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src
-        ${PROJECT_SOURCE_DIR}/src/
+	${PROJECT_SOURCE_DIR}/generated/
+	${PROJECT_SOURCE_DIR}/src/
 )
-set(src_dir
-        ${PROJECT_SOURCE_DIR}/generated/Python3Lexer.cpp
-        ${PROJECT_SOURCE_DIR}/generated/Python3Parser.cpp
-        ${PROJECT_SOURCE_DIR}/generated/Python3Listener.cpp
-        ${PROJECT_SOURCE_DIR}/generated/Python3BaseListener.cpp
-        )
-file(GLOB antlr4-cpp-src
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/*.cpp
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/atn/*.cpp
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/dfa/*.cpp
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/misc/*.cpp
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/support/*.cpp
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/tree/*.cpp
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/tree/pattern/*.cpp
-        ${PROJECT_SOURCE_DIR}/third_party/runtime/src/tree/xpath/*.cpp
-        )
-add_library (antlr4-cpp-runtime ${antlr4-cpp-src})
+
+add_subdirectory(${PROJECT_SOURCE_DIR}/generated)
 ### YOU CAN"T MODIFY THE CODE ABOVE
 
-add_executable(code ${src_dir}
-        src/main.cpp
-        src/Evalvisitor.cpp
-        src/AnyOpt.cpp
-        src/BigNumber.cpp
-        src/func.cpp
-        ) # Add all *.cpp file after src/main.cpp, like src/Evalvisitor.cpp did
+file(GLOB_RECURSE main_src src/*.cpp)
+
+add_executable(code ${main_src}) # Add all *.cpp file after src/main.cpp, like src/Evalvisitor.cpp did
 
 ### YOU CAN'T MODIFY THE CODE BELOW
-target_link_libraries(code antlr4-cpp-runtime)
+target_link_libraries(code PyAntlr)
+target_link_libraries(code antlr4-runtime)
 ### YOU CAN"T MODIFY THE CODE ABOVE

@@ -2,6 +2,7 @@
 #ifndef ANY_OPT_HEADER
 #define ANY_OPT_HEADER
 
+#include "base.h"
 #include "BigNumber.h"
 #include "Evalvisitor.h"
 #include <iostream>
@@ -9,37 +10,37 @@
 #include <unordered_map>
 using std::string;
 
-void testVar(antlrcpp::Any &any);
+void testVar(std::any &any);
 
-Int toInt(antlrcpp::Any const &a);
-double toFloat(antlrcpp::Any const &a);
-string toStr(antlrcpp::Any const &a);
-bool toBool(antlrcpp::Any const &a);
+Int toInt(std::any const &a);
+double toFloat(std::any const &a);
+string toStr(std::any const &a);
+bool toBool(std::any const &a);
 
-antlrcpp::Any operator-(antlrcpp::Any const &a);
-void setAnyNegative(antlrcpp::Any &a);
+std::any operator-(std::any const &a);
+void setAnyNegative(std::any &a);
 
-antlrcpp::Any operator+(antlrcpp::Any const &a, antlrcpp::Any const &b);
-antlrcpp::Any operator-(antlrcpp::Any const &a, antlrcpp::Any const &b);
-antlrcpp::Any operator*(antlrcpp::Any const &a, antlrcpp::Any const &b);
-antlrcpp::Any DivFloat(antlrcpp::Any const &a, antlrcpp::Any const &b);
-antlrcpp::Any DivInt(antlrcpp::Any const &a, antlrcpp::Any const &b);
-antlrcpp::Any operator%(antlrcpp::Any const &a, antlrcpp::Any const &b);
+std::any operator+(std::any const &a, std::any const &b);
+std::any operator-(std::any const &a, std::any const &b);
+std::any operator*(std::any const &a, std::any const &b);
+std::any DivFloat(std::any const &a, std::any const &b);
+std::any DivInt(std::any const &a, std::any const &b);
+std::any operator%(std::any const &a, std::any const &b);
 
-antlrcpp::Any& operator+=(antlrcpp::Any &a, antlrcpp::Any const &b);
-antlrcpp::Any& operator-=(antlrcpp::Any &a, antlrcpp::Any const &b);
-antlrcpp::Any& operator*=(antlrcpp::Any &a, antlrcpp::Any const &b);
-antlrcpp::Any& operator%=(antlrcpp::Any &a, antlrcpp::Any const &b);
+std::any& operator+=(std::any &a, std::any const &b);
+std::any& operator-=(std::any &a, std::any const &b);
+std::any& operator*=(std::any &a, std::any const &b);
+std::any& operator%=(std::any &a, std::any const &b);
 
-bool operator<(antlrcpp::Any const &a, antlrcpp::Any const &b);
-bool operator>(antlrcpp::Any const &a, antlrcpp::Any const &b);
-bool operator==(antlrcpp::Any const &a, antlrcpp::Any const &b);
-bool operator>=(antlrcpp::Any const &a, antlrcpp::Any const &b);
-bool operator<=(antlrcpp::Any const &a, antlrcpp::Any const &b);
-bool operator!=(antlrcpp::Any const &a, antlrcpp::Any const &b);
+bool operator<(std::any const &a, std::any const &b);
+bool operator>(std::any const &a, std::any const &b);
+bool operator==(std::any const &a, std::any const &b);
+bool operator>=(std::any const &a, std::any const &b);
+bool operator<=(std::any const &a, std::any const &b);
+bool operator!=(std::any const &a, std::any const &b);
 
 string operator*(string x, int b);
 
-std::ostream &operator<<(std::ostream &, antlrcpp::Any const &);
+std::ostream &operator<<(std::ostream &, std::any const &);
 
 #endif

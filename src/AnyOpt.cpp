@@ -1,91 +1,92 @@
 #include "AnyOpt.h"
 #include "func.h"
 #include <cmath>
+#include <iomanip>
 
-void testVar(antlrcpp::Any &any) {
-	if (any.is<std::vector<antlrcpp::Any>>()) {
-		std::vector<antlrcpp::Any> &v = any.as<std::vector<antlrcpp::Any>>();
+void testVar(std::any &any) {
+	if (is<std::vector<std::any>>(any)) {
+		std::vector<std::any> &v = as<std::vector<std::any>>(any);
 		for (auto &x : v)
 			testVar(x);
 	}
-	if (any.is<VarType>()) any = any.as<VarType>()->second;
+	if (is<VarType>(any)) any = as<VarType>(any)->second;
 }
 
-Int toInt(antlrcpp::Any const &a) {
-	if (a.is<Int>())
-		return a.as<Int>();
-	else if (a.is<double>())
-		return Int{a.as<double>()};
-	else if (a.is<string>())
-		return Int(a.as<string>());
-	else if (a.is<bool>())
-		return a.as<bool>() ? 1 : 0;
+Int toInt(std::any const &a) {
+	if (is<Int>(a))
+		return as<Int>(a);
+	else if (is<double>(a))
+		return Int{as<double>(a)};
+	else if (is<string>(a))
+		return Int(as<string>(a));
+	else if (is<bool>(a))
+		return as<bool>(a) ? 1 : 0;
 	else
 		return 0;
 }
 
-double toFloat(antlrcpp::Any const &a) {
-	if (a.is<double>())
-		return a.as<double>();
-	else if (a.is<Int>())
-		return a.as<Int>().to_double();
-	else if (a.is<string>())
-		return std::stod(a.as<string>());
-	else if (a.is<bool>())
-		return a.as<bool>() ? 1.0 : 0.0;
+double toFloat(std::any const &a) {
+	if (is<double>(a))
+		return as<double>(a);
+	else if (is<Int>(a))
+		return as<Int>(a).to_double();
+	else if (is<string>(a))
+		return std::stod(as<string>(a));
+	else if (is<bool>(a))
+		return as<bool>(a) ? 1.0 : 0.0;
 	else
 		return 0.0;
 }
 
-bool toBool(antlrcpp::Any const &a) {
-	if (a.is<bool>())
-		return a.as<bool>();
-	else if (a.is<Int>())
-		return bool(a.as<Int>());
-	else if (a.is<double>())
-		return bool(a.as<double>());
-	else if (a.is<string>())
-		return a.as<string>().length() > 0;
+bool toBool(std::any const &a) {
+	if (is<bool>(a))
+		return as<bool>(a);
+	else if (is<Int>(a))
+		return bool(as<Int>(a));
+	else if (is<double>(a))
+		return bool(as<double>(a));
+	else if (is<string>(a))
+		return as<string>(a).length() > 0;
 	else
 		return false;
 }
 
-std::string toStr(antlrcpp::Any const &a) {
-	if (a.is<string>())
-		return a;
-	else if (a.is<Int>())
-		return a.as<Int>().to_string();
-	else if (a.is<double>())
-		return std::to_string(a.as<double>());
-	else if (a.is<bool>())
-		return a.as<bool>() ? "True" : "False";
+std::string toStr(std::any const &a) {
+	if (is<string>(a))
+		return as<string>(a);
+	else if (is<Int>(a))
+		return as<Int>(a).to_string();
+	else if (is<double>(a))
+		return std::to_string(as<double>(a));
+	else if (is<bool>(a))
+		return as<bool>(a) ? "True" : "False";
 	else
 		return "None";
 }
 
-antlrcpp::Any operator+(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.is<string>() || b.is<string>())
+std::any operator+(std::any const &a, std::any const &b) {
+	if (is<string>(a) || is<string>(b))
 		return toStr(a) + toStr(b);
-	else if (a.is<double>() || b.is<double>())
+	else if (is<double>(a) || is<double>(b))
 		return toFloat(a) + toFloat(b);
 	else
 		return toInt(a) + toInt(b);
 }
 
-antlrcpp::Any operator-(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.is<double>() || b.is<double>())
+std::any operator-(std::any const &a, std::any const &b) {
+	if (is<double>(a) || is<double>(b))
 		return toFloat(a) - toFloat(b);
 	else
 		return toInt(a) - toInt(b);
 }
 
-antlrcpp::Any operator*(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.is<string>() || b.is<string>()) {
-		string s = a.is<string>() ? a.as<string>() : b.as<string>();
-		Int times = toInt(a.is<string>() ? b : a);
+std::any operator*(std::any const &a, std::any const &b) {
+	if (is<string>(a) || is<string>(b)) {
+		string s = is<string>(a) ? as<string>(a) : as<string>(b);
+		Int times = toInt(is<string>(a) ? b : a);
 		return s * int(times);
 	}
-	else if (a.is<double>() || b.is<double>()) {
+	else if (is<double>(a) || is<double>(b)) {
 		double x = toFloat(a), y = toFloat(b);
 		return x * y;
 	}
@@ -95,8 +96,8 @@ antlrcpp::Any operator*(antlrcpp::Any const &a, antlrcpp::Any const &b) {
 	}
 }
 
-antlrcpp::Any DivInt(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.is<double>() || b.is<double>()) {
+std::any DivInt(std::any const &a, std::any const &b) {
+	if (is<double>(a) || is<double>(b)) {
 		double x = toFloat(a), y = toFloat(b);
 		return floor(x / y);
 	}
@@ -105,57 +106,57 @@ antlrcpp::Any DivInt(antlrcpp::Any const &a, antlrcpp::Any const &b) {
 	}
 }
 
-antlrcpp::Any DivFloat(antlrcpp::Any const &a, antlrcpp::Any const &b) {
+std::any DivFloat(std::any const &a, std::any const &b) {
 	double x = toFloat(a), y = toFloat(b);
 	return x / y;
 }
 
-antlrcpp::Any operator%(antlrcpp::Any const &a, antlrcpp::Any const &b) {
+std::any operator%(std::any const &a, std::any const &b) {
 	return a - DivInt(a, b) * b;
 }
 
-antlrcpp::Any &operator+=(antlrcpp::Any &a, antlrcpp::Any const &b) {
-	if (a.is<Int>() && b.is<Int>()) {
-		a.as<Int>() += b.as<Int>();
+std::any &operator+=(std::any &a, std::any const &b) {
+	if (is<Int>(a) && is<Int>(b)) {
+		as<Int>(a) += as<Int>(b);
 		return a;
 	}
 	return a = a + b;
 }
 
-antlrcpp::Any &operator-=(antlrcpp::Any &a, antlrcpp::Any const &b) {
-	if (a.is<Int>() && b.is<Int>()) {
-		a.as<Int>() -= b.as<Int>();
+std::any &operator-=(std::any &a, std::any const &b) {
+	if (is<Int>(a) && is<Int>(b)) {
+		as<Int>(a) -= as<Int>(b);
 		return a;
 	}
 	return a = a - b;
 }
 
-antlrcpp::Any &operator*=(antlrcpp::Any &a, antlrcpp::Any const &b) {
-	if (a.is<Int>() && b.is<Int>()) {
-		a.as<Int>() *= b.as<Int>();
+std::any &operator*=(std::any &a, std::any const &b) {
+	if (is<Int>(a) && is<Int>(b)) {
+		as<Int>(a) *= as<Int>(b);
 		return a;
 	}
 	else return a = a * b;
 }
 
-antlrcpp::Any &operator%=(antlrcpp::Any &a, antlrcpp::Any const &b) {
+std::any &operator%=(std::any &a, std::any const &b) {
 	a -= DivInt(a, b) * b;
 	return a;
 }
 
-antlrcpp::Any operator-(antlrcpp::Any const &a) {
-	if (a.is<double>())
-		return -a.as<double>();
+std::any operator-(std::any const &a) {
+	if (is<double>(a))
+		return -as<double>(a);
 	else
 		return -toInt(a);
 }
 
-void setAnyNegative(antlrcpp::Any &a) {
-	if (a.is<double>())
-		a.as<double>() = -a.as<double>();
+void setAnyNegative(std::any &a) {
+	if (is<double>(a))
+		as<double>(a) = -as<double>(a);
 	else {
-		if (!a.is<Int>()) a = toInt(a);
-		a.as<Int>().toggleSign();
+		if (!is<Int>(a)) a = toInt(a);
+		as<Int>(a).toggleSign();
 	}
 }
 
@@ -167,14 +168,14 @@ void setAnyNegative(antlrcpp::Any &a) {
  * @details int \< int, int \< bool,
  * @details bool \< bool
  */
-bool operator<(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.is<string>()) return b.is<string>() && a.as<string>() < b.as<string>();
-	else if (a.is<double>() || b.is<double>()) return toFloat(a) < toFloat(b);
-	else if (a.is<Int>() || b.is<Int>()) return toInt(a) < toInt(b);
+bool operator<(std::any const &a, std::any const &b) {
+	if (is<string>(a)) return is<string>(b) && as<string>(a) < as<string>(b);
+	else if (is<double>(a) || is<double>(b)) return toFloat(a) < toFloat(b);
+	else if (is<Int>(a) || is<Int>(b)) return toInt(a) < toInt(b);
 	else return toBool(a) < toBool(b);
 }
 
-bool operator>(antlrcpp::Any const &a, antlrcpp::Any const &b) {
+bool operator>(std::any const &a, std::any const &b) {
 	return b < a;
 }
 
@@ -182,23 +183,23 @@ bool operator>(antlrcpp::Any const &a, antlrcpp::Any const &b) {
  * @attention None only equal to None
  * @attention str only equal to str
  */
-bool operator==(antlrcpp::Any const &a, antlrcpp::Any const &b) {
-	if (a.isNull() || b.isNull()) return a.isNull() && b.isNull();
-	if (a.is<string>() || b.is<string>()) return a.is<string>() && b.is<string>() && a.as<string>() == b.as<string>();
-	else if (a.is<double>() || b.is<double>()) return toFloat(a) == toFloat(b);
-	else if (a.is<Int>() || b.is<Int>()) return toInt(a) == toInt(b);
+bool operator==(std::any const &a, std::any const &b) {
+	if (isNull(a) || isNull(b)) return isNull(a) && isNull(b);
+	if (is<string>(a) || is<string>(b)) return is<string>(a) && is<string>(b) && as<string>(a) == as<string>(b);
+	else if (is<double>(a) || is<double>(b)) return toFloat(a) == toFloat(b);
+	else if (is<Int>(a) || is<Int>(b)) return toInt(a) == toInt(b);
 	else return toBool(a) == toBool(b);
 }
 
-bool operator>=(antlrcpp::Any const &a, antlrcpp::Any const &b) {
+bool operator>=(std::any const &a, std::any const &b) {
 	return !(a < b);
 }
 
-bool operator<=(antlrcpp::Any const &a, antlrcpp::Any const &b) {
+bool operator<=(std::any const &a, std::any const &b) {
 	return !(b < a);
 }
 
-bool operator!=(antlrcpp::Any const &a, antlrcpp::Any const &b) {
+bool operator!=(std::any const &a, std::any const &b) {
 	return !(a == b);
 }
 
@@ -214,27 +215,27 @@ string operator*(string x, int b) {
 	return r;
 }
 
-std::ostream &operator<<(std::ostream &os, antlrcpp::Any const &a) {
-	if (a.is<VarType>())
-		os << a.as<VarType>()->second;
-	else if (a.is<string>())
-		os << a.as<string>();
-	else if (a.is<Int>())
-		os << a.as<Int>();
-	else if (a.is<double>()) {
-		double val = a.as<double>();
+std::ostream &operator<<(std::ostream &os, std::any const &a) {
+	if (is<VarType>(a))
+		os << as<VarType>(a)->second;
+	else if (is<string>(a))
+		os << as<string>(a);
+	else if (is<Int>(a))
+		os << as<Int>(a);
+	else if (is<double>(a)) {
+		double val = as<double>(a);
 		constexpr double eps = 1e-9;
 		if (val > -eps && val < eps) val = 0;
 		os << std::fixed << std::setprecision(6) << val;
 	}
-	else if (a.is<bool>())
-		os << (a.as<bool>() ? "True" : "False");
-	else if (a.isNull())
+	else if (is<bool>(a))
+		os << (as<bool>(a) ? "True" : "False");
+	else if (isNull(a))
 		os << "None";
-	else if (a.is<std::shared_ptr<func>>())
-		os << "function<" << a.as<std::shared_ptr<func>>()->getName() << ">";
-	else if (a.is<std::vector<antlrcpp::Any>>()) {
-		std::vector<antlrcpp::Any> const &v = a.as<std::vector<antlrcpp::Any>>();
+	else if (is<std::shared_ptr<func>>(a))
+		os << "function<" << as<std::shared_ptr<func>>(a)->getName() << ">";
+	else if (is<std::vector<std::any>>(a)) {
+		std::vector<std::any> const &v = as<std::vector<std::any>>(a);
 		if (v.empty()) return os << "()";
 		os << "(" << v[0];
 		for (size_t i = 1; i < v.size(); ++i)
