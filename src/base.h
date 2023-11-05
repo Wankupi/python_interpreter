@@ -11,15 +11,15 @@ bool is(std::any const &a) {
 
 template <typename T>
 T &as(std::any &a) {
-	return std::any_cast<T>(a);
+	return std::any_cast<T &>(a);
 }
 
 template <typename T>
 T const &as(std::any const &a) {
-	return std::any_cast<T>(a);
+	return std::any_cast<T const &>(a);
 }
 
-bool isNull(std::any const &a) {
+inline bool isNull(std::any const &a) {
 	return !a.has_value();
 }
 
